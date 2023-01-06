@@ -1,0 +1,12 @@
+{
+  "name": "ocap-stats-front",
+  "version": "0.1.0",
+  "description": "RB OCAP stats frontend",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
