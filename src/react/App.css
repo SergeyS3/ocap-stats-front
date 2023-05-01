@@ -1,0 +1,15 @@
+body {
+    margin: 0;
+    font-size: 16px;
+}
+
+body > div {
+    display: grid;
+    grid-template-columns: 270px auto;
+    grid-template-rows: 100%;
+}
+
+main {
+    background-color: #f5f7fa;
+    padding: 40px;
+}

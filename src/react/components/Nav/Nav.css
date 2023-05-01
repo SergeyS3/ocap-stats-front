@@ -1,0 +1,52 @@
+nav {
+    border-right: 1px solid rgba(0, 0, 0, .14);
+    min-height: 100vh;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+nav a {
+    display: block;
+    padding: 8px 30px 7px;
+}
+
+nav li:not(:first-child) a:hover {
+    background-color: #eee;
+}
+
+nav li:first-child {
+    border-bottom: 1px solid rgba(0, 0, 0, .14);
+}
+
+nav a, nav a:visited {
+    text-decoration: none;
+    color: #000;
+}
+
+.logo {
+    font-size: 40px;
+    width: 100%;
+}
+
+.logo-rb {
+    color: #d52d2d;
+    font-family: 'Russo One', serif;
+    background: linear-gradient(0deg, #3c0909 3%, #d53131 66%, #ffbbbb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.logo-ocap {
+    color: #d52d2d;
+    font-family: 'BebasNeue', system-ui;
+    font-weight: 700;
+    background: linear-gradient(0deg, #3d3d3d 50%, #9b9b9b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
