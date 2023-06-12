@@ -1,18 +1,18 @@
-import React from 'react'
 import './Nav.css'
+import { NavLink } from 'react-router-dom'
 
 
 const Nav = () =>
   <nav>
     <ul>
       <li>
-        <a href='/' className='logo'>
+        <NavLink to='/' className='logo'>
           <span className='logo-rb'>RB</span> <span className='logo-ocap'>OCAP</span> stats
-        </a>
+        </NavLink>
       </li>
       <li>
-        <a href='/'>Menu item 1</a>
-        <a href='/'>Menu item 2</a>
+        <NavLink to='/games'>Игры</NavLink>
+        <NavLink to='/players'>Игроки</NavLink>
       </li>
     </ul>
   </nav>

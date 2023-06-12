@@ -4,11 +4,12 @@
     "moduleResolution": "NodeNext",
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "target": "ES2022",
     "sourceMap": true,
     "outDir": "dist",
-    "noImplicitAny": true
+    "noImplicitAny": true,
+    "noUncheckedIndexedAccess": true
   },
   "include": [
     "src"

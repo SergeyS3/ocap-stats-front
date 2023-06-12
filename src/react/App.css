@@ -9,7 +9,17 @@ body > div {
     grid-template-rows: 100%;
 }
 
+body > div > div {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 64px auto;
+}
+
 main {
-    background-color: #f5f7fa;
+    background-color: var(--app-bg-color);
     padding: 40px;
+}
+
+button:not(:disabled) {
+    cursor: pointer;
 }
