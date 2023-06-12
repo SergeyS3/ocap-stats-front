@@ -1,0 +1,7 @@
+.block {
+    background-color: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
+    max-width: 1500px;
+}

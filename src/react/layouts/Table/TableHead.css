@@ -1,0 +1,25 @@
+thead {
+    position: sticky;
+    top: 0;
+}
+
+th {
+    background-color: var(--bg-primary);
+    text-align: left;
+}
+
+th span {
+    cursor: pointer;
+}
+
+th button {
+    background: none;
+    border: none;
+    padding: 0;
+}
+th button:first-of-type {
+    padding-left: .25rem;
+}
+th button:not(.active) {
+    color: #aaa;
+}

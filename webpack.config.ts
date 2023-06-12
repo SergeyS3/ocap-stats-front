@@ -4,13 +4,16 @@ import CssMinimizerPlugin from 'css-minimizer-webpack-plugin'
 import TerserPlugin from 'terser-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import tsconfig from './tsconfig.json'
-import webpack from 'webpack'
+import { Configuration, DefinePlugin } from 'webpack'
+import dotenv from 'dotenv'
 
+
+dotenv.config()
 
 const srcDir = path.join(__dirname, 'src')
 
-export default (env: {}, argv: { mode?: webpack.Configuration['mode'] }) => {
-  const config: webpack.Configuration = {
+export default (env: {}, argv: { mode?: Configuration['mode'] }) => {
+  const config: Configuration = {
     mode: argv.mode || 'development',
     entry: {
       main: `${srcDir}/react/index.tsx`,
@@ -48,6 +51,12 @@ export default (env: {}, argv: { mode?: webpack.Configuration['mode'] }) => {
         title: 'Loading...',
         favicon: `${srcDir}/static/images/favicon.ico`,
       }),
+      new DefinePlugin({
+        'process.env': ['BOT_API_URL'].reduce((acc, varName) => ({
+          ...acc,
+          [varName]: JSON.stringify(process.env[varName]),
+        }), {}),
+      }),
     ],
     stats: {
       modules: false,
@@ -58,10 +67,7 @@ export default (env: {}, argv: { mode?: webpack.Configuration['mode'] }) => {
     config.plugins.push(
       new CssMinimizerPlugin({
         minimizerOptions: {
-          preset: ['default', {
-            discardComments: { removeAll: true },
-            cssDeclarationSorter: true,
-          }],
+          preset: ['default', { cssDeclarationSorter: false }],
         },
       }),
     )

@@ -1,0 +1,29 @@
+
+.form-control {
+    border: 1px solid var(--input-border-color);
+    border-radius: 4px;
+}
+
+select.form-control {
+    appearance: none;
+    padding: .25rem 1.75rem .25rem .5rem;
+    /*noinspection CssUnknownTarget*/
+    background: transparent url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='none' stroke='%237e8393' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/></svg>") no-repeat right .45rem center;
+    background-size: 15px;
+}
+
+input.form-control {
+    padding: .25rem 0 .25rem .5rem;
+}
+
+input[type=date].form-control {
+    padding: .23rem .25rem .12rem .5rem;
+}
+
+button.form-control {
+    background-color: #fff;
+    padding: .23rem .75rem;
+}
+button.form-control:hover {
+    background-color: var(--bg-primary);
+}

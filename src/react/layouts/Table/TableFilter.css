@@ -1,0 +1,13 @@
+.table-filter {
+    display: flex;
+    align-items: flex-end;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.table-filter label {
+    display: flex;
+    flex-direction: column;
+    width: 10rem;
+    gap: .25rem
+}

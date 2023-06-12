@@ -1,5 +1,5 @@
 nav {
-    border-right: 1px solid rgba(0, 0, 0, .14);
+    border-right: 1px solid var(--border-color);
     min-height: 100vh;
 }
 
@@ -16,12 +16,17 @@ nav a {
     padding: 8px 30px 7px;
 }
 
-nav li:not(:first-child) a:hover {
-    background-color: #eee;
+nav a.active:not(.logo) {
+    background-color: var(--bg-primary);
+}
+
+nav li:not(:first-child) a:not(.active):hover {
+    background-color: var(--bg-secondary);
 }
 
 nav li:first-child {
-    border-bottom: 1px solid rgba(0, 0, 0, .14);
+    height: 63px;
+    border-bottom: 1px solid var(--border-color);
 }
 
 nav a, nav a:visited {
@@ -30,12 +35,11 @@ nav a, nav a:visited {
 }
 
 .logo {
-    font-size: 40px;
+    font-size: 2.5rem;
     width: 100%;
 }
 
 .logo-rb {
-    color: #d52d2d;
     font-family: 'Russo One', serif;
     background: linear-gradient(0deg, #3c0909 3%, #d53131 66%, #ffbbbb);
     -webkit-background-clip: text;
@@ -43,10 +47,9 @@ nav a, nav a:visited {
 }
 
 .logo-ocap {
-    color: #d52d2d;
     font-family: 'BebasNeue', system-ui;
     font-weight: 700;
-    background: linear-gradient(0deg, #3d3d3d 50%, #9b9b9b);
+    background: linear-gradient(0deg, #484848 50%, #9b9b9b);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
