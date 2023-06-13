@@ -10,13 +10,15 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
+type Config = Configuration & Required<Pick<Configuration, 'plugins'>>
+
 const srcDir = path.join(__dirname, 'src')
 
 export default (env: {}, argv: { mode?: Configuration['mode'] }) => {
-  const config: Configuration = {
+  const config: Config = {
     mode: argv.mode || 'development',
     entry: {
-      main: `${srcDir}/react/index.tsx`,
+      main: `${srcDir}/index.tsx`,
     },
     output: {
       filename: '[contenthash].js',
@@ -49,7 +51,7 @@ export default (env: {}, argv: { mode?: Configuration['mode'] }) => {
       }),
       new HtmlWebpackPlugin({
         title: 'Loading...',
-        favicon: `${srcDir}/static/images/favicon.ico`,
+        favicon: `${srcDir}/assets/images/favicon.ico`,
       }),
       new DefinePlugin({
         'process.env': ['BOT_API_URL'].reduce((acc, varName) => ({

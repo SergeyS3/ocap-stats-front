@@ -9,7 +9,7 @@ type Page = {
 }
 
 type Props<T> = {
-  items: T[];
+  items: T[]
   pageSize: number
   onPageSet: (pageItems: T[]) => any
 }
@@ -73,10 +73,10 @@ const Pagination = <T, >({ items, pageSize, onPageSet }: Props<T>) => {
   const index = pageNumber - 1
 
   useEffect(() => {
-    onPageSet(paginatedItems[index] || [])
+    onPageSet(paginatedItems[index] ?? [])
   }, [paginatedItems, index])
 
-  const itemsOnPage = paginatedItems[index]?.length || 0
+  const itemsOnPage = paginatedItems[index]?.length ?? 0
 
   return (
     <div className='pagination-container'>
@@ -89,11 +89,11 @@ const Pagination = <T, >({ items, pageSize, onPageSet }: Props<T>) => {
             className={!label && number === pageNumber ? 'active' : ''}
             type='button'
             key={'' + label + number}
-            onClick={() => setPageNumber(number)}
-            title={'' + (number || '')}
+            onClick={() => setPageNumber(number as number)}
+            title={'' + (number ?? '')}
             disabled={!number}
           >
-            {label || '' + number}
+            {label ?? '' + number}
           </button>,
         )}
       </div>

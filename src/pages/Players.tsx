@@ -3,24 +3,24 @@ import useTitle from '../hooks/useTitle'
 import { BotApi } from '../services/bot-api'
 import Block from '../layouts/Block'
 import Table from '../layouts/Table/Table'
-import { gamesTableCols } from '../data/tables/games'
+import { playersTableCols } from '../data/tables/players'
 import { ProjectContext } from '../App'
 import Loader from '../components/Loader'
 
 
-const Games = () => {
-  useTitle('Игры')
+const Players = () => {
+  useTitle('Игроки')
 
   const project = useContext(ProjectContext)
-  const [games, setGames] = useState([] as Game[])
+  const [playersStat, setPlayersStat] = useState([] as Player[])
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     setIsLoading(true)
 
-    BotApi.allGames(project).then(games => {
+    void BotApi.players(project).then(players => {
       setIsLoading(false)
-      setGames(games)
+      setPlayersStat(players)
     })
   }, [project])
 
@@ -28,10 +28,10 @@ const Games = () => {
     <Block>
       {isLoading
         ? <Loader />
-        : <Table cols={gamesTableCols} rows={games} defaultSortField='startedAt' />
+        : <Table cols={playersTableCols} rows={playersStat} defaultSortField='frags' />
       }
     </Block>
   )
 }
 
-export default Games
+export default Players

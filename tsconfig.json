@@ -8,8 +8,11 @@
     "target": "ES2022",
     "sourceMap": true,
     "outDir": "dist",
+    "strict": true,
     "noImplicitAny": true,
-    "noUncheckedIndexedAccess": true
+    "noUncheckedIndexedAccess": true,
+    "forceConsistentCasingInFileNames": true,
+    "strictNullChecks": true
   },
   "include": [
     "src"

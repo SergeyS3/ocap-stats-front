@@ -2,11 +2,11 @@
     font-family: 'Russo One';
     font-style: normal;
     font-weight: 400;
-    src: url('../static/fonts/Russo One.woff2') format('woff2');
+    src: url('../fonts/Russo One.woff2') format('woff2');
 }
 @font-face {
     font-family: 'BebasNeue';
     font-style: normal;
     font-weight: 700;
-    src: url('../static/fonts/BebasNeue Bold.otf') format('opentype');
+    src: url('../fonts/BebasNeue Bold.otf') format('opentype');
 }

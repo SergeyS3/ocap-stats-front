@@ -6,6 +6,7 @@ export enum Project {
   tvt2 = 'rb-tvt2',
 }
 
+/* eslint-disable @typescript-eslint/no-extraneous-class */
 export class BotApi {
   static async allGames(project: Project) {
     const res = await this.fetch(`/${project}/allMissions`)
@@ -23,10 +24,10 @@ export class BotApi {
     if (params)
       path += '?' + new URLSearchParams(params)
 
-    return fetch(process.env.BOT_API_URL + path, {
+    return await fetch(process.env.BOT_API_URL + path, {
       method: 'GET',
       headers: {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json',
       },
     })
