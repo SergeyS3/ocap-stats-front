@@ -9,7 +9,7 @@ export const convertGamesInfo = (gamesInfoRes: ApiAllMissions) => {
     const endedAt = new Date(gameInfoRes.endedAt)
 
     const duration = parse(gameInfoRes.duration)
-    const durationInSeconds = (duration.hours || 0) * 3600 + (duration.minutes || 0) * 60 + (duration.seconds || 0)
+    const durationInSeconds = (duration.hours ?? 0) * 3600 + (duration.minutes ?? 0) * 60 + (duration.seconds ?? 0)
 
     res.push({
       ...gameInfoRes,

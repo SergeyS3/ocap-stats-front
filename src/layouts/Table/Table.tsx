@@ -8,7 +8,7 @@ import TableHead from './TableHead'
 export type Props<T> = {
   cols: AnyTableCols<T>
   rows: T[]
-  defaultSortField: BaseTableCol<T>['sortField']
+  defaultSortField: NonNullable<BaseTableCol<T>['sortField']>
 }
 
 const Table = <T, >({ cols, rows, defaultSortField }: Props<T>) => {

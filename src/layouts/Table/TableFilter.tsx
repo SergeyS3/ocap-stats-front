@@ -35,6 +35,8 @@ const TableFilter = <T, >({ cols, rows, onChange }: Props<T>) => {
             case 'date':
               return (rowVal as Date).toISOString().indexOf(filterVal) === 0
           }
+
+          return true
         }),
       ),
     )

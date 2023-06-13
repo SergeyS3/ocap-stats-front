@@ -16,10 +16,11 @@ th button {
     background: none;
     border: none;
     padding: 0;
+    color: #000;
 }
 th button:first-of-type {
     padding-left: .25rem;
 }
-th button:not(.active) {
+th button:not(:disabled) {
     color: #aaa;
 }

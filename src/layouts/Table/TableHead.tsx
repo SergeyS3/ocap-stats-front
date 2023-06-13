@@ -4,11 +4,6 @@ import { strCaseInsensitiveCompareFn } from '../../utils/string'
 import { Props as TableProps } from './Table'
 
 
-enum SortDirection {
-  asc = '▲',
-  desc = '▼',
-}
-
 type Props<T> = Pick<TableProps<T>, 'cols' | 'rows' | 'defaultSortField'> & {
   onSortChange: (sortedRows: T[]) => any
 }
@@ -16,9 +11,7 @@ type Props<T> = Pick<TableProps<T>, 'cols' | 'rows' | 'defaultSortField'> & {
 const TableHead = <T, >({ cols, rows, defaultSortField, onSortChange }: Props<T>) => {
   const [sort, setSort] = useState({
     field: defaultSortField,
-    direction: cols.find(c => c.sortField === defaultSortField)?.sortAscByDefault
-      ? SortDirection.asc
-      : SortDirection.desc,
+    asc: !!cols.find(c => c.sortField === defaultSortField)?.sortAscByDefault,
   })
 
   useEffect(() => {
@@ -28,7 +21,7 @@ const TableHead = <T, >({ cols, rows, defaultSortField, onSortChange }: Props<T>
         const valB = b[sort.field]
         const res = typeof valA === 'string' ? strCaseInsensitiveCompareFn(valA, valB as typeof valA) : +valA - +valB
 
-        return sort.direction === SortDirection.desc ? res * -1 : res
+        return sort.asc ? res : res * -1
       }),
     )
   }, [sort, rows])
@@ -38,30 +31,17 @@ const TableHead = <T, >({ cols, rows, defaultSortField, onSortChange }: Props<T>
       <tr>
         {cols.map(col => {
           const isColSortActive = sort.field === col.sortField
-          const setColSortActive = (direction: SortDirection) => setSort({ field: col.sortField, direction })
+          const setColSort = (asc: boolean) => setSort({ field: col.sortField as typeof sort.field, asc })
 
           return (
             <th key={col.label}>
               {col.sortField
                 ? <>
-                  <span
-                    onClick={() => setColSortActive(
-                      (isColSortActive ? sort.direction === SortDirection.desc : col.sortAscByDefault)
-                        ? SortDirection.asc
-                        : SortDirection.desc,
-                    )}
-                  >
+                  <span onClick={() => setColSort(isColSortActive ? !sort.asc : !!col.sortAscByDefault)}>
                     {col.label}
                   </span>
-                  {Object.values(SortDirection).map(sortDirection =>
-                    <button
-                      key={sortDirection}
-                      className={isColSortActive && sort.direction === sortDirection ? 'active' : ''}
-                      onClick={() => setColSortActive(sortDirection)}
-                    >
-                      {sortDirection}
-                    </button>,
-                  )}
+                  <button disabled={isColSortActive && sort.asc} onClick={() => setColSort(true)}>▲</button>
+                  <button disabled={isColSortActive && !sort.asc} onClick={() => setColSort(false)}>▼</button>
                 </>
                 : col.label
               }
