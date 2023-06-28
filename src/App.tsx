@@ -11,30 +11,34 @@ import Players from './pages/Players'
 import NotFound from './pages/NotFound'
 import { createContext, useState } from 'react'
 import { Project } from './services/bot-api'
+import { QueryClient, QueryClientProvider } from 'react-query'
 
 
 export const ProjectContext = createContext('' as Project)
+const queryClient = new QueryClient
 
 const App = () => {
   const [project, setProject] = useState(Project.tvt2)
 
   return (
-    <ProjectContext.Provider value={project}>
-      <BrowserRouter>
-        <Nav />
-        <div>
-          <Header project={project} onProjectChange={setProject} />
-          <main>
-            <Routes>
-              <Route path='/' element={<Home />} />
-              <Route path='/games' element={<Games />} />
-              <Route path='/players' element={<Players />} />
-              <Route path='*' element={<NotFound />} />
-            </Routes>
-          </main>
-        </div>
-      </BrowserRouter>
-    </ProjectContext.Provider>
+    <QueryClientProvider client={queryClient}>
+      <ProjectContext.Provider value={project}>
+        <BrowserRouter>
+          <Nav />
+          <div>
+            <Header project={project} onProjectChange={setProject} />
+            <main>
+              <Routes>
+                <Route path='/' element={<Home />} />
+                <Route path='/games' element={<Games />} />
+                <Route path='/players' element={<Players />} />
+                <Route path='*' element={<NotFound />} />
+              </Routes>
+            </main>
+          </div>
+        </BrowserRouter>
+      </ProjectContext.Provider>
+    </QueryClientProvider>
   )
 }
 
