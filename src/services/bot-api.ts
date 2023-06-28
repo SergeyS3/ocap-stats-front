@@ -6,30 +6,27 @@ export enum Project {
   tvt2 = 'rb-tvt2',
 }
 
-/* eslint-disable @typescript-eslint/no-extraneous-class */
-export class BotApi {
-  static async allGames(project: Project) {
-    const res = await this.fetch(`/${project}/allMissions`)
+export const fetchGames = async (project: Project) => {
+  const res = await fetchApi(`/${project}/allMissions`)
 
-    return convertGamesInfo(await res.json())
-  }
+  return convertGamesInfo(await res.json())
+}
 
-  static async players(project: Project) {
-    const res = await this.fetch(`/${project}/fullStat`, { untaged: false })
+export const fetchPlayers = async (project: Project) => {
+  const res = await fetchApi(`/${project}/fullStat`, { untaged: false })
 
-    return (await res.json() as ApiFullStat).stats
-  }
+  return (await res.json() as ApiFullStat).stats
+}
 
-  private static async fetch(path: string, params?: Record<string, any>): Promise<Response> {
-    if (params)
-      path += '?' + new URLSearchParams(params)
+const fetchApi = async (path: string, params?: Record<string, any>): Promise<Response> => {
+  if (params)
+    path += '?' + new URLSearchParams(params)
 
-    return await fetch(process.env.BOT_API_URL + path, {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    })
-  }
+  return await fetch(process.env.BOT_API_URL + path, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+  })
 }
