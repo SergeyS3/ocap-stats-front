@@ -17,7 +17,7 @@ body > div > div {
 
 main {
     background-color: var(--app-bg-color);
-    padding: 40px;
+    padding: 25px;
 }
 
 button:not(:disabled) {
