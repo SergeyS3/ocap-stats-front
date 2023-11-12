@@ -1,4 +1,5 @@
 import { convertGamesInfo } from '../utils/api-converters'
+import ApiFetchError from '../errors/ApiFetchError'
 
 
 export enum Project {
@@ -29,6 +30,19 @@ const fetchApi = async <T>(path: string, params?: Record<string, any>): Promise<
       'Content-Type': 'application/json',
     },
   })
+
+  let error = ''
+  switch (res.status) {
+    case 200:
+      break
+    case 429:
+      error = 'Слишком много запросов'
+      break
+    default:
+      error = 'Ошибка запроса'
+  }
+  if (error)
+    throw new ApiFetchError(error)
 
   return await res.json() as T
 }
