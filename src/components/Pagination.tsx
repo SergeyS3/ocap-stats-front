@@ -17,9 +17,7 @@ type Props<T> = {
 const Pagination = <T, >({ items, pageSize, onPageSet }: Props<T>) => {
   const [pageNumber, setPageNumber] = useState(1)
 
-  const paginatedItems = useMemo(() => (
-    arrayChunk(items, pageSize)
-  ), [arrayChunk, items, pageSize])
+  const paginatedItems = useMemo(() => arrayChunk(items, pageSize), [items, pageSize])
 
   const pagesCount = paginatedItems.length
 
@@ -74,7 +72,7 @@ const Pagination = <T, >({ items, pageSize, onPageSet }: Props<T>) => {
 
   useEffect(() => {
     onPageSet(paginatedItems[index] ?? [])
-  }, [paginatedItems, index])
+  }, [onPageSet, paginatedItems, index])
 
   const itemsOnPage = paginatedItems[index]?.length ?? 0
 

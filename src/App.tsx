@@ -11,10 +11,11 @@ import Players from './pages/Players'
 import NotFound from './pages/NotFound'
 import { createContext, useState } from 'react'
 import { Project } from './services/bot-api'
-import { QueryClient, QueryClientProvider } from 'react-query'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 
 export const ProjectContext = createContext('' as Project)
+
 const queryClient = new QueryClient
 
 const App = () => {
