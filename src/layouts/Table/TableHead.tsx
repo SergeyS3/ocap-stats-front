@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import './TableHead.css'
 import { strCaseInsensitiveCompareFn } from '../../utils/string'
-import { Props as TableProps } from './Table'
+import type { Props as TableProps } from './Table'
 
 
 type Props<T> = Pick<TableProps<T>, 'cols' | 'rows' | 'defaultSortField'> & {
@@ -16,7 +16,7 @@ const TableHead = <T, >({ cols, rows, defaultSortField, onSortChange }: Props<T>
 
   useEffect(() => {
     onSortChange(
-      rows.slice().sort((a, b) => {
+      [...rows].sort((a, b) => {
         const valA = a[sort.field]
         const valB = b[sort.field]
         const res = typeof valA === 'string' ? strCaseInsensitiveCompareFn(valA, valB as typeof valA) : +valA - +valB
@@ -24,7 +24,7 @@ const TableHead = <T, >({ cols, rows, defaultSortField, onSortChange }: Props<T>
         return sort.asc ? res : res * -1
       }),
     )
-  }, [sort, rows])
+  }, [onSortChange, rows, sort])
 
   return (
     <thead>

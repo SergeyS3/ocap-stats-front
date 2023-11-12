@@ -15,6 +15,7 @@
     "strictNullChecks": true
   },
   "include": [
-    "src"
+    "src", 
+    "webpack.config.ts"
   ]
 }

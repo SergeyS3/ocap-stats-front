@@ -1,7 +1,7 @@
 import { arrayUniqueStrsCaseInsensitive, tableColWithFilterPredicate } from '../../utils/array'
 import { strCaseInsensitiveCompareFn, strIncludesCaseInsensitive } from '../../utils/string'
-import { useEffect, useMemo, useState } from 'react'
-import { Props as TableProps } from './Table'
+import { type JSX, useEffect, useMemo, useState } from 'react'
+import type { Props as TableProps } from './Table'
 import './TableFilter.css'
 
 
@@ -14,9 +14,7 @@ type Props<T> = Pick<TableProps<T>, 'cols' | 'rows'> & {
 const TableFilter = <T, >({ cols, rows, onChange }: Props<T>) => {
   const [filter, setFilter] = useState({} as Filter<T>)
 
-  const colsWithFilter = useMemo(() => (
-    cols.filter(tableColWithFilterPredicate)
-  ), [cols, tableColWithFilterPredicate])
+  const colsWithFilter = useMemo(() => cols.filter(tableColWithFilterPredicate), [cols])
 
   useEffect(() => {
     onChange(
@@ -40,7 +38,7 @@ const TableFilter = <T, >({ cols, rows, onChange }: Props<T>) => {
         }),
       ),
     )
-  }, [rows, filter, colsWithFilter, strIncludesCaseInsensitive])
+  }, [onChange, rows, filter, colsWithFilter])
 
   return (
     <div className='table-filter'>

@@ -1,4 +1,4 @@
-import { convertGamesInfo } from '../utils/apiConverters'
+import { convertGamesInfo } from '../utils/api-converters'
 
 
 export enum Project {
@@ -6,27 +6,29 @@ export enum Project {
   tvt2 = 'rb-tvt2',
 }
 
-export const fetchGames = async (project: Project) => {
-  const res = await fetchApi(`/${project}/allMissions`)
+export const fetchGames = async (project: Project): Promise<Game[]> => {
+  const res = await fetchApi<ApiAllMissions>(`/${project}/allMissions`)
 
-  return convertGamesInfo(await res.json())
+  return convertGamesInfo(res)
 }
 
-export const fetchPlayers = async (project: Project) => {
-  const res = await fetchApi(`/${project}/fullStat`, { untaged: false })
+export const fetchPlayers = async (project: Project): Promise<Player[]> => {
+  const res = await fetchApi<ApiFullStat>(`/${project}/fullStat`, { untaged: false })
 
-  return (await res.json() as ApiFullStat).stats
+  return res.stats
 }
 
-const fetchApi = async (path: string, params?: Record<string, any>): Promise<Response> => {
+const fetchApi = async <T>(path: string, params?: Record<string, any>): Promise<T> => {
   if (params)
-    path += '?' + new URLSearchParams(params)
+    path += '?' + new URLSearchParams(params).toString()
 
-  return await fetch(process.env.BOT_API_URL + path, {
+  const res = await fetch(process.env.BOT_API_URL + path, {
     method: 'GET',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
   })
+
+  return await res.json() as T
 }
