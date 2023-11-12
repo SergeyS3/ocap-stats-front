@@ -5,7 +5,6 @@ import Block from '../layouts/Block'
 import Table from '../layouts/Table/Table'
 import { gamesTableCols } from '../data/tables/games'
 import { ProjectContext } from '../App'
-import Loader from '../components/Loader'
 import { useQuery } from '@tanstack/react-query'
 
 
@@ -13,7 +12,7 @@ const Games = () => {
   useTitle('Игры')
 
   const project = useContext(ProjectContext)
-  const { isLoading, error, data: games } = useQuery({
+  const { isFetching, error, refetch, data: games } = useQuery({
     queryKey: ['games', project],
     queryFn: () => fetchGames(project),
     initialData: [],
@@ -21,10 +20,13 @@ const Games = () => {
 
   return (
     <Block>
-      {isLoading || error
-        ? <Loader />
-        : <Table cols={gamesTableCols} rows={games} defaultSortField='startedAt' />
-      }
+      <Table
+        cols={gamesTableCols}
+        rows={games}
+        isFetching={isFetching || !!error}
+        refetch={refetch}
+        defaultSortField='startedAt'
+      />
     </Block>
   )
 }
