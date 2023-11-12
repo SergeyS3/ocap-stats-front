@@ -2,86 +2,93 @@
 module.exports = {
   env: {
     browser: true,
-    es2022: true,
+    es2023: true,
   },
-  extends: [
-    'standard-with-typescript',
-    'plugin:react/recommended',
-  ],
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
-    project: 'tsconfig.json',
+    project: './tsconfig.json',
   },
-  plugins: [
-    'react',
-  ],
+  parser: '@typescript-eslint/parser',
   settings: {
-    react: {
+    'react': {
       version: 'detect',
     },
-  },
-  rules: {
-    '@typescript-eslint/interface-name-prefix': 'off',
-    '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/explicit-module-boundary-types': 'off',
-    '@typescript-eslint/no-explicit-any': 'off',
-    'semi': ['warn', 'never'],
-    'jsx-quotes': ['warn', 'prefer-single'],
-    'no-mixed-operators': [
-      'warn',
-      {
-        'groups': [
-          ['&', '|', '^', '~', '<<', '>>', '>>>'],
-          ['==', '!=', '===', '!==', '>', '>=', '<', '<='],
-          ['in', 'instanceof'],
-        ],
-        'allowSamePrecedence': false,
+    'import/resolver': {
+      node: {
+        extensions: ['.ts', '.tsx'],
       },
-    ],
-    'curly': ['warn', 'multi'],
-    'quotes': ['warn', 'single'],
-    'no-return-await': 'off', // Note: must disable this base rule as it can report incorrect errors
-    '@typescript-eslint/return-await': ['warn', 'always'],
-    'indent': ['warn', 2, {
-      'ignoredNodes': ['PropertyDefinition[decorators]'],
-      'SwitchCase': 1,
-    }],
-    'space-before-blocks': 'warn',
-    'keyword-spacing': 'warn',
-    'space-before-function-paren': ['warn', {
-      'anonymous': 'never',
-      'named': 'never',
-      'asyncArrow': 'always',
-    }],
-    '@typescript-eslint/space-before-function-paren': ['warn', {
-      'anonymous': 'never',
-      'named': 'never',
-      'asyncArrow': 'always',
-    }],
-    'object-shorthand': ['warn', 'always'],
-    'new-parens': ['warn', 'never'],
-    'comma-dangle': 'off', // Note: must disable this base rule as it can report incorrect errors
-    '@typescript-eslint/comma-dangle': ['warn', {
-      'arrays': 'always-multiline',
-      'objects': 'always-multiline',
-      'imports': 'always-multiline',
-      'exports': 'always-multiline',
-      'functions': 'always-multiline',
-      'enums': 'always-multiline',
-      'generics': 'ignore', // there is trailing comma in tsx arrow function generics
-      'tuples': 'always-multiline',
-    }],
-    'react/react-in-jsx-scope': 'off',
-    '@typescript-eslint/consistent-type-definitions': ['warn', 'type'],
-    '@typescript-eslint/array-type': ['warn', { default: 'array' }],
-    '@typescript-eslint/consistent-type-imports': 'off', // bug: rule applies to .d.ts files too https://github.com/typescript-eslint/typescript-eslint/issues/3295
-    '@typescript-eslint/strict-boolean-expressions': 'off',
-    '@typescript-eslint/restrict-plus-operands': 'off',
-    '@typescript-eslint/no-confusing-void-expression': 'off',
-    '@typescript-eslint/consistent-type-assertions': 'off', // no need for pet project
-    'no-multiple-empty-lines': 'off',
-    '@typescript-eslint/promise-function-async': 'off',
-    '@typescript-eslint/no-non-null-assertion': 'off',
+    },
   },
+  overrides: [
+    {
+      files: ['*.tsx', '*.ts'],
+      extends: [
+        'eslint:recommended',
+        'plugin:@typescript-eslint/recommended',
+        'plugin:@typescript-eslint/recommended-requiring-type-checking',
+        'plugin:import/recommended',
+        'plugin:import/typescript',
+        'plugin:react/recommended',
+        'plugin:react/jsx-runtime',
+        'plugin:react-hooks/recommended',
+        'plugin:deprecation/recommended',
+        'plugin:unicorn/recommended',
+        'plugin:promise/recommended',
+      ],
+      rules: {
+        '@typescript-eslint/array-type': ['warn', { default: 'array' }],
+        '@typescript-eslint/comma-dangle': ['warn', {
+          'arrays': 'always-multiline',
+          'objects': 'always-multiline',
+          'imports': 'always-multiline',
+          'exports': 'always-multiline',
+          'functions': 'always-multiline',
+          'enums': 'always-multiline',
+          'generics': 'ignore', // There is trailing comma in tsx arrow function generics
+          'tuples': 'always-multiline',
+        }],
+        '@typescript-eslint/consistent-type-assertions': 'off',
+        '@typescript-eslint/consistent-type-definitions': ['warn', 'type'],
+        '@typescript-eslint/no-confusing-void-expression': 'off',
+        '@typescript-eslint/no-explicit-any': 'off',
+        '@typescript-eslint/no-non-null-assertion': 'off',
+        '@typescript-eslint/promise-function-async': 'off',
+        '@typescript-eslint/strict-boolean-expressions': 'off',
+        'arrow-parens': ['warn', 'as-needed'],
+        'curly': ['warn', 'multi'],
+        'import/no-anonymous-default-export': 'warn',
+        'import/no-unresolved': 'off', // Unable to resolve path to module 'react-dom/client'
+        'jsx-quotes': ['warn', 'prefer-single'],
+        'new-parens': ['warn', 'never'],
+        'no-extra-parens': 'warn',
+        'object-shorthand': ['warn', 'always'],
+        'semi': ['warn', 'never'],
+        'quotes': ['warn', 'single'],
+        'unicorn/explicit-length-check': 'off',
+        'unicorn/filename-case': ['error', {
+          case: 'kebabCase',
+          ignore: ['^use.*\\.ts$', '.*\\.tsx$'],
+        }],
+        'unicorn/no-array-callback-reference': 'off',
+        'unicorn/no-null': 'off',
+        'unicorn/prefer-dom-node-append': 'off',
+        'unicorn/prevent-abbreviations': 'off',
+        'unicorn/switch-case-braces': ['warn', 'avoid'],
+      },
+    },
+    {
+      files: ['*.tsx', '*.ts'],
+      excludedFiles: ['*.d.ts'],
+      rules: {
+        '@typescript-eslint/consistent-type-imports': 'error',
+      },
+    },
+    {
+      files: ['*.tsx'],
+      rules: {
+        '@typescript-eslint/explicit-function-return-type': 'off',
+      },
+    },
+  ],
 }

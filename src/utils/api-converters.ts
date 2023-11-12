@@ -2,7 +2,7 @@ import { parse } from 'tinyduration'
 import { formatDuration } from './date'
 
 
-export const convertGamesInfo = (gamesInfoRes: ApiAllMissions) => {
+export const convertGamesInfo = (gamesInfoRes: ApiAllMissions): Game[] => {
   const res = [] as Game[]
 
   for (const gameInfoRes of gamesInfoRes.missions) {

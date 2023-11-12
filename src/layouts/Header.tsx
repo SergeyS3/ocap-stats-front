@@ -19,7 +19,9 @@ const Header = ({ project: selectedProject, onProjectChange }: Props) => {
       <select
         className='form-control'
         value={selectedProject}
-        onChange={e => onProjectChange(e.target.value as Project)}
+        onChange={e => {
+          onProjectChange(e.target.value as Project)
+        }}
       >
         {Object.values(Project).map(project =>
           <option key={project} value={project}>{projectNames[project]}</option>,
