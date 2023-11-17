@@ -5,16 +5,17 @@ import '@/assets/css/fonts.css'
 import '@/assets/css/inputs.css'
 import './App.css'
 import Header from '@/layouts/Header'
-import Home from '@/pages/Home'
-import Games from '@/pages/Games'
+import HomePage from '@/pages/HomePage'
+import GamesPage from '@/pages/GamesPage'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Players from '@/pages/Players'
-import NotFound from '@/pages/NotFound'
+import PlayersPage from '@/pages/PlayersPage'
+import NotFoundPage from '@/pages/NotFoundPage'
 import { createContext, useState } from 'react'
 import { Project } from '@/services/bot-api'
 import { QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { toast, ToastContainer } from 'react-toastify'
 import ApiFetchError from './errors/ApiFetchError'
+import routes from '@/config/routes'
 
 
 export const ProjectContext = createContext('' as Project)
@@ -48,10 +49,10 @@ const App = () => {
             <Header project={project} onProjectChange={setProject} />
             <main>
               <Routes>
-                <Route path='/' element={<Home />} />
-                <Route path='/games' element={<Games />} />
-                <Route path='/players' element={<Players />} />
-                <Route path='*' element={<NotFound />} />
+                <Route path='/' element={<HomePage />} />
+                <Route path={routes.games} element={<GamesPage />} />
+                <Route path={routes.players} element={<PlayersPage />} />
+                <Route path='*' element={<NotFoundPage />} />
               </Routes>
               <ToastContainer />
             </main>

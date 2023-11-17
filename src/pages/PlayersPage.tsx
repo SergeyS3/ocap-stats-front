@@ -1,34 +1,34 @@
 import { useContext } from 'react'
 import useTitle from '@/hooks/useTitle'
-import { fetchGames } from '@/services/bot-api'
+import { fetchPlayers } from '@/services/bot-api'
 import Block from '@/layouts/Block'
 import Table from '@/layouts/Table/Table'
-import { gamesTableCols } from '@/config/tables/games'
+import { playersTableCols } from '@/config/tables/players'
 import { ProjectContext } from '@/App'
 import { useQuery } from '@tanstack/react-query'
 
 
-const Games = () => {
-  useTitle('Игры')
+const PlayersPage = () => {
+  useTitle('Игроки')
 
   const project = useContext(ProjectContext)
-  const { isFetching, error, refetch, data: games } = useQuery({
-    queryKey: ['games', project],
-    queryFn: () => fetchGames(project),
+  const { isFetching, error, refetch, data: players } = useQuery({
+    queryKey: ['players', project],
+    queryFn: () => fetchPlayers(project),
     initialData: [],
   })
 
   return (
     <Block>
       <Table
-        cols={gamesTableCols}
-        rows={games}
+        cols={playersTableCols}
+        rows={players}
         isFetching={isFetching || !!error}
         refetch={refetch}
-        defaultSortField='startedAt'
+        defaultSortField='frags'
       />
     </Block>
   )
 }
 
-export default Games
+export default PlayersPage
