@@ -2,7 +2,7 @@ import useTitle from '@/hooks/useTitle'
 import Block from '@/layouts/Block'
 
 
-const Home = () => {
+const HomePage = () => {
   useTitle('RB OCAP stats')
 
   return (
@@ -12,4 +12,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default HomePage
