@@ -1,10 +1,10 @@
 import { useContext } from 'react'
-import useTitle from '../hooks/useTitle'
-import { fetchPlayers } from '../services/bot-api'
-import Block from '../layouts/Block'
-import Table from '../layouts/Table/Table'
-import { playersTableCols } from '../data/tables/players'
-import { ProjectContext } from '../App'
+import useTitle from '@/hooks/useTitle'
+import { fetchPlayers } from '@/services/bot-api'
+import Block from '@/layouts/Block'
+import Table from '@/layouts/Table/Table'
+import { playersTableCols } from '@/config/tables/players'
+import { ProjectContext } from '@/App'
 import { useQuery } from '@tanstack/react-query'
 
 

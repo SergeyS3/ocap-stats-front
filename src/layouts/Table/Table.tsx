@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import './Table.css'
-import Pagination from '../../components/Pagination'
-import TableFilter from './TableFilter'
-import TableHead from './TableHead'
+import Pagination from '@/components/Pagination'
+import TableFilter from '@/layouts/Table/TableFilter'
+import TableHead from '@/layouts/Table/TableHead'
 import type { UseQueryResult } from '@tanstack/react-query'
-import Loader from '../../components/Loader'
+import Loader from '@/components/Loader'
 
 
 export type Props<T> = {

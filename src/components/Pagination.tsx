@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import './Pagination.css'
-import { arrayChunk } from '../utils/array'
+import { arrayChunk } from '@/utils/array'
 
 
 type Page = {

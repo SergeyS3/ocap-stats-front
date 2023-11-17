@@ -3,6 +3,7 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin'
 import TerserPlugin from 'terser-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
+import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin'
 import tsconfig from './tsconfig.json'
 import { Configuration, DefinePlugin } from 'webpack'
 import dotenv from 'dotenv'
@@ -28,6 +29,7 @@ export default (env: {}, argv: { mode?: Configuration['mode'] }) => {
     },
     resolve: {
       extensions: ['.js', '.ts', '.tsx'],
+      plugins: [new TsconfigPathsPlugin],
     },
     module: {
       rules: [
