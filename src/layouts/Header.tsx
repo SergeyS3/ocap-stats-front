@@ -1,5 +1,5 @@
 import './Header.css'
-import { Project } from '../services/bot-api'
+import { Project } from '@/services/bot-api'
 
 
 type Props = {

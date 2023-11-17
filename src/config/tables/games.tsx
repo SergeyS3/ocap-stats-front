@@ -1,4 +1,4 @@
-import { formatDatesRange } from '../../utils/date'
+import { formatDatesRange } from '@/utils/date'
 
 
 export const gamesTableCols: AnyTableCols<Game> = [

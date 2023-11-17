@@ -1,7 +1,7 @@
-import { arrayUniqueStrsCaseInsensitive, tableColWithFilterPredicate } from '../../utils/array'
-import { strCaseInsensitiveCompareFn, strIncludesCaseInsensitive } from '../../utils/string'
+import { arrayUniqueStrsCaseInsensitive, tableColWithFilterPredicate } from '@/utils/array'
+import { strCaseInsensitiveCompareFn, strIncludesCaseInsensitive } from '@/utils/string'
 import { type JSX, useEffect, useMemo, useState } from 'react'
-import type { Props as TableProps } from './Table'
+import type { Props as TableProps } from '@/layouts/Table/Table'
 import './TableFilter.css'
 
 

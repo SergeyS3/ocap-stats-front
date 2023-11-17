@@ -1,5 +1,5 @@
-import { convertGamesInfo } from '../utils/api-converters'
-import ApiFetchError from '../errors/ApiFetchError'
+import { convertGamesInfo } from '@/utils/api-converters'
+import ApiFetchError from '@/errors/ApiFetchError'
 
 
 export enum Project {

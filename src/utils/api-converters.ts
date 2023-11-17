@@ -1,5 +1,5 @@
 import { parse } from 'tinyduration'
-import { formatDuration } from './date'
+import { formatDuration } from '@/utils/date'
 
 
 export const convertGamesInfo = (gamesInfoRes: ApiAllMissions): Game[] => {
