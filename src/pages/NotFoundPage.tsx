@@ -2,7 +2,7 @@ import Block from '@/layouts/Block'
 import useTitle from '@/hooks/useTitle'
 
 
-const NotFound = () => {
+const NotFoundPage = () => {
   useTitle('Страница не найдена')
 
   return (
@@ -11,4 +11,4 @@ const NotFound = () => {
     </Block>
   )
 }
-export default NotFound
+export default NotFoundPage
