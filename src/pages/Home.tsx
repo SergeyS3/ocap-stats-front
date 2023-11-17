@@ -1,5 +1,5 @@
-import useTitle from '../hooks/useTitle'
-import Block from '../layouts/Block'
+import useTitle from '@/hooks/useTitle'
+import Block from '@/layouts/Block'
 
 
 const Home = () => {

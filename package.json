@@ -32,6 +32,7 @@
     "tinyduration": "^3.3.0",
     "ts-loader": "^9.5.0",
     "ts-node": "^10.9.1",
+    "tsconfig-paths-webpack-plugin": "^4.1.0",
     "typescript": "^5.2.2",
     "uglify-js": "^3.17.4",
     "webpack": "^5.89.0",
