@@ -10,15 +10,12 @@ import GamesPage from '@/pages/GamesPage'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import PlayersPage from '@/pages/PlayersPage'
 import NotFoundPage from '@/pages/NotFoundPage'
-import { createContext, useState } from 'react'
-import { Project } from '@/services/bot-api'
+import ProjectContextProvider from '@/context/ProjectContextProvider'
 import { QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { toast, ToastContainer } from 'react-toastify'
 import ApiFetchError from './errors/ApiFetchError'
 import routes from '@/config/routes'
 
-
-export const ProjectContext = createContext('' as Project)
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -37,30 +34,25 @@ const queryClient = new QueryClient({
   }),
 })
 
-const App = () => {
-  const [project, setProject] = useState(Project.tvt2)
-
-  return (
-    <QueryClientProvider client={queryClient}>
-      <ProjectContext.Provider value={project}>
-        <BrowserRouter>
-          <Nav />
-          <div>
-            <Header project={project} onProjectChange={setProject} />
-            <main>
-              <Routes>
-                <Route path='/' element={<HomePage />} />
-                <Route path={routes.games} element={<GamesPage />} />
-                <Route path={routes.players} element={<PlayersPage />} />
-                <Route path='*' element={<NotFoundPage />} />
-              </Routes>
-              <ToastContainer />
-            </main>
-          </div>
-        </BrowserRouter>
-      </ProjectContext.Provider>
-    </QueryClientProvider>
-  )
-}
+const App = () =>
+  <QueryClientProvider client={queryClient}>
+    <ProjectContextProvider>
+      <BrowserRouter>
+        <Nav />
+        <div>
+          <Header />
+          <main>
+            <Routes>
+              <Route path='/' element={<HomePage />} />
+              <Route path={routes.games} element={<GamesPage />} />
+              <Route path={routes.players} element={<PlayersPage />} />
+              <Route path='*' element={<NotFoundPage />} />
+            </Routes>
+            <ToastContainer />
+          </main>
+        </div>
+      </BrowserRouter>
+    </ProjectContextProvider>
+  </QueryClientProvider>
 
 export default App

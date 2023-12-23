@@ -1,20 +1,16 @@
 import { convertGamesInfo } from '@/utils/api-converters'
 import ApiFetchError from '@/errors/ApiFetchError'
+import type { Project } from '@/config/projects'
 
 
-export enum Project {
-  tvt1 = 'rb-tvt1',
-  tvt2 = 'rb-tvt2',
-}
-
-export const fetchGames = async (project: Project): Promise<Game[]> => {
-  const res = await fetchApi<ApiAllMissions>(`/${project}/allMissions`)
+export const fetchGames = async (projectCode: Project['code']): Promise<Game[]> => {
+  const res = await fetchApi<ApiAllMissions>(`/${projectCode}/allMissions`)
 
   return convertGamesInfo(res)
 }
 
-export const fetchPlayers = async (project: Project): Promise<Player[]> => {
-  const res = await fetchApi<ApiFullStat>(`/${project}/fullStat`, { untaged: false })
+export const fetchPlayers = async (projectCode: Project['code']): Promise<Player[]> => {
+  const res = await fetchApi<ApiFullStat>(`/${projectCode}/fullStat`, { untaged: false })
 
   return res.stats
 }
