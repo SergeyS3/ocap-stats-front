@@ -1,22 +1,21 @@
-import { useContext } from 'react'
+import { useProjectContext } from '@/context/ProjectContextProvider'
 import useTitle from '@/hooks/useTitle'
 import { fetchPlayers } from '@/services/bot-api'
 import Block from '@/layouts/Block'
 import Table from '@/layouts/Table/Table'
 import { playersTableCols } from '@/config/tables/players'
-import { ProjectContext } from '@/App'
 import { useQuery } from '@tanstack/react-query'
 
 
 const PlayersPage = () => {
-  useTitle('Игроки')
-
-  const project = useContext(ProjectContext)
+  const { project } = useProjectContext()
   const { isFetching, error, refetch, data: players } = useQuery({
-    queryKey: ['players', project],
-    queryFn: () => fetchPlayers(project),
+    queryKey: ['players', project.code],
+    queryFn: () => fetchPlayers(project.code),
     initialData: [],
   })
+
+  useTitle(`${project.name}: Игроки`)
 
   return (
     <Block>
