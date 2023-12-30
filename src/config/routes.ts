@@ -1,6 +1,6 @@
 const routes = {
-  games: '/games',
-  players: '/players',
-} as const satisfies Record<string, string>
+  games: (project: string) => `/${project}/games`,
+  players: (project: string) => `/${project}/players`,
+} as const satisfies Record<string, string | ((...args: any) => string)>
 
 export default routes

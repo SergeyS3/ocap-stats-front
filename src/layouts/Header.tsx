@@ -1,10 +1,9 @@
 import './Header.css'
-import { projects } from '@/config/projects'
-import { useProjectContext } from '@/context/ProjectContextProvider'
+import useProject, { type ProjectCode, projects } from '@/hooks/useProject'
 
 
 const Header = () => {
-  const { project, setProject } = useProjectContext()
+  const { project, setProject } = useProject()
 
   return (
     <div className='header'>
@@ -12,9 +11,7 @@ const Header = () => {
       <select
         className='form-control'
         value={project.code}
-        onChange={e => {
-          setProject(projects.find(p => p.code === e.target.value)!)
-        }}
+        onChange={e => setProject(e.target.value as ProjectCode)}
       >
         {projects.map(project =>
           <option key={project.code} value={project.code}>{project.name}</option>,

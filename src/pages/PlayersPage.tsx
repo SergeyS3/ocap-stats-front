@@ -1,4 +1,4 @@
-import { useProjectContext } from '@/context/ProjectContextProvider'
+import useProject from '@/hooks/useProject'
 import useTitle from '@/hooks/useTitle'
 import { fetchPlayers } from '@/services/bot-api'
 import Block from '@/layouts/Block'
@@ -8,7 +8,7 @@ import { useQuery } from '@tanstack/react-query'
 
 
 const PlayersPage = () => {
-  const { project } = useProjectContext()
+  const { project } = useProject()
   const { isFetching, error, refetch, data: players } = useQuery({
     queryKey: ['players', project.code],
     queryFn: () => fetchPlayers(project.code),
