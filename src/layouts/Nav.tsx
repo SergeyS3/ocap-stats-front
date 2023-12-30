@@ -1,9 +1,12 @@
 import './Nav.css'
 import { NavLink } from 'react-router-dom'
 import routes from '@/config/routes'
+import useProject from '@/hooks/useProject'
 
 
 const Nav = () => {
+  const { project } = useProject()
+
   return (
     <nav>
       <ul>
@@ -13,8 +16,8 @@ const Nav = () => {
           </NavLink>
         </li>
         <li>
-          <NavLink to={routes.games}>Игры</NavLink>
-          <NavLink to={routes.players}>Игроки</NavLink>
+          <NavLink to={routes.games(project.code)}>Игры</NavLink>
+          <NavLink to={routes.players(project.code)}>Игроки</NavLink>
         </li>
       </ul>
     </nav>
