@@ -78,16 +78,9 @@ module.exports = {
       },
     },
     {
-      files: ['*.tsx', '*.ts'],
-      excludedFiles: ['*.d.ts'],
+      files: ['*.ts'],
       rules: {
-        '@typescript-eslint/consistent-type-imports': 'error',
-      },
-    },
-    {
-      files: ['*.tsx'],
-      rules: {
-        '@typescript-eslint/explicit-function-return-type': 'off',
+        '@typescript-eslint/explicit-function-return-type': 'warn',
       },
     },
   ],

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import './TableHead.css'
 import { strCaseInsensitiveCompareFn } from '@/utils/string'
-import type { Props as TableProps } from '@/layouts/Table/Table'
+import { Props as TableProps } from '@/layouts/Table/Table'
 
 
 type Props<T> = Pick<TableProps<T>, 'cols' | 'rows' | 'defaultSortField'> & {
