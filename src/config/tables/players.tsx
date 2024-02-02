@@ -1,3 +1,6 @@
+import { AnyTableCols } from '@/types/table'
+
+
 export const playersTableCols: AnyTableCols<Player> = [
   {
     label: 'Игрок',
