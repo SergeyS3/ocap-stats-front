@@ -1,8 +1,9 @@
 import { arrayUniqueStrsCaseInsensitive, tableColWithFilterPredicate } from '@/utils/array'
 import { strCaseInsensitiveCompareFn, strIncludesCaseInsensitive } from '@/utils/string'
-import { type JSX, useEffect, useMemo, useState } from 'react'
-import type { Props as TableProps } from '@/layouts/Table/Table'
+import { JSX, useEffect, useMemo, useState } from 'react'
+import { Props as TableProps } from '@/layouts/Table/Table'
 import './TableFilter.css'
+import { FilterableTableCol } from '@/types/table'
 
 
 type Filter<T> = Record<FilterableTableCol<T>['filterField'], any>

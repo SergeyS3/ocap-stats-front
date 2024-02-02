@@ -1,6 +1,6 @@
 import { convertGamesInfo } from '@/utils/api-converters'
 import ApiFetchError from '@/errors/ApiFetchError'
-import type { ProjectCode } from '@/hooks/useProject'
+import { ProjectCode } from '@/hooks/useProject'
 
 
 export const fetchGames = async (project: ProjectCode): Promise<Game[]> => {

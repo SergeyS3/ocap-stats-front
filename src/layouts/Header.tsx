@@ -1,5 +1,5 @@
 import './Header.css'
-import useProject, { type ProjectCode, projects } from '@/hooks/useProject'
+import useProject, { ProjectCode, projects } from '@/hooks/useProject'
 
 
 const Header = () => {
