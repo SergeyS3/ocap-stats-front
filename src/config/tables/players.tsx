@@ -1,10 +1,11 @@
 import { AnyTableCols } from '@/types/table'
+import PlayerLink from '@/components/links/PlayerLink'
 
 
 export const playersTableCols: AnyTableCols<Player> = [
   {
     label: 'Игрок',
-    getVal: playerStat => playerStat.player,
+    getVal: playerStat => <PlayerLink player={playerStat.player} />,
     sortField: 'player',
     sortAscByDefault: true,
     filterType: 'text',

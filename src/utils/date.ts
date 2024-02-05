@@ -1,11 +1,11 @@
-const format = (date: Date, options: Intl.DateTimeFormatOptions): string =>
-  new Intl.DateTimeFormat('ru', options).format(date)
+const format = (date: DateConstructorParam, options: Intl.DateTimeFormatOptions): string =>
+  new Intl.DateTimeFormat('ru', options).format(new Date(date))
 
-export const formatWeekday = (date: Date): string => format(date, { weekday: 'short' })
+export const formatWeekday = (date: DateConstructorParam): string => format(date, { weekday: 'short' })
 
-export const formatDate = (date: Date): string => format(date, { dateStyle: 'short' })
+export const formatDate = (date: DateConstructorParam): string => format(date, { dateStyle: 'short' })
 
-export const formatTime = (date: Date, showSeconds = false): string =>
+export const formatTime = (date: DateConstructorParam, showSeconds = false): string =>
   format(date, { timeStyle: showSeconds ? 'medium' : 'short' })
 
 export const formatDatesRange = (from: Date, to: Date): string =>

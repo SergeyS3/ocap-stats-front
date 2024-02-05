@@ -5,3 +5,7 @@ type Game = Omit<ApiAllMissions['missions'][0], 'endedAt' | 'duration'> & {
 }
 
 type Player = ApiFullStat['stats'][0]
+
+type PlayerStat = Omit<ApiStatHistory['result'][0], 'dateTime'> & {
+  dateTime: Date
+}

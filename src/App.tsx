@@ -1,4 +1,5 @@
 import 'react-toastify/dist/ReactToastify.min.css'
+import '@/assets/css/index.css'
 import '@/assets/css/colors.css'
 import '@/assets/css/fonts.css'
 import '@/assets/css/inputs.css'
@@ -12,6 +13,7 @@ import { toast } from 'react-toastify'
 import ApiFetchError from './errors/ApiFetchError'
 import routes from '@/config/routes'
 import Page from '@/layouts/Page'
+import PlayerPage from '@/pages/PlayerPage'
 
 
 const queryClient = new QueryClient({
@@ -39,6 +41,7 @@ const App = () =>
           <Route index element={<HomePage />} />
           <Route path={routes.games(':project')} element={<GamesPage />} />
           <Route path={routes.players(':project')} element={<PlayersPage />} />
+          <Route path={routes.player(':project', ':player')} element={<PlayerPage />} />
           <Route path='*' element={<NotFoundPage />} />
         </Route>
       </Routes>

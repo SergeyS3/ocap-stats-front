@@ -68,13 +68,14 @@ module.exports = {
         'unicorn/explicit-length-check': 'off',
         'unicorn/filename-case': ['error', {
           case: 'kebabCase',
-          ignore: ['^use.*\\.ts$', '.*\\.tsx$'],
+          ignore: [/^use.*\.ts$/, /Error\.ts/, /\.tsx$/],
         }],
         'unicorn/no-array-callback-reference': 'off',
         'unicorn/no-null': 'off',
         'unicorn/prefer-dom-node-append': 'off',
         'unicorn/prevent-abbreviations': 'off',
         'unicorn/switch-case-braces': ['warn', 'avoid'],
+        'unicorn/consistent-function-scoping': 'off', // https://github.com/sindresorhus/eslint-plugin-unicorn/issues/2164
       },
     },
     {

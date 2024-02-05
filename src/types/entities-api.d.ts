@@ -22,3 +22,15 @@ type ApiFullStat = {
     deaths: number
   }[]
 }
+
+type ApiStatHistory = {
+  player: string
+  result: {
+    index: number
+    dateTime: string
+    games: number
+    frags: number
+    teamKills: number
+    deaths: number
+  }[]
+}
