@@ -18,7 +18,7 @@ const PlayersPage = () => {
   useTitle(`${project.name}: Игроки`)
 
   return (
-    <Block>
+    <Block fullWidth>
       <Table
         cols={playersTableCols}
         rows={players}

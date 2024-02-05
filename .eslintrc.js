@@ -75,6 +75,7 @@ module.exports = {
         'unicorn/prefer-dom-node-append': 'off',
         'unicorn/prevent-abbreviations': 'off',
         'unicorn/switch-case-braces': ['warn', 'avoid'],
+        'unicorn/consistent-function-scoping': 'off', // https://github.com/sindresorhus/eslint-plugin-unicorn/issues/2164
       },
     },
     {

@@ -2,8 +2,12 @@ import { PropsWithChildren } from 'react'
 import './Block.css'
 
 
-const Block = ({ children }: PropsWithChildren) =>
-  <div className='block'>
+type Props = PropsWithChildren<{
+  fullWidth?: boolean
+}>
+
+const Block = ({ children, fullWidth = false }: Props) =>
+  <div className={`block ${fullWidth ? 'full-width' : ''}`}>
     {children}
   </div>
 

@@ -6,6 +6,7 @@ import TableHead from '@/layouts/Table/TableHead'
 import { UseQueryResult } from '@tanstack/react-query'
 import Loader from '@/components/Loader'
 import { AnyTableCols, BaseTableCol } from '@/types/table'
+import useProject from '@/hooks/useProject'
 
 
 export type Props<T> = {
@@ -17,6 +18,7 @@ export type Props<T> = {
 }
 
 const Table = <T, >({ cols, rows, isFetching, refetch, defaultSortField }: Props<T>) => {
+  const { project } = useProject()
   const [pageRows, setPageRows] = useState([] as T[])
   const [filteredRows, setFilteredRows] = useState([] as T[])
   const [sortedRows, setSortedRows] = useState([] as T[])

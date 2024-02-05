@@ -1,0 +1,9 @@
+:root {
+    --blocks-gap: 1.25rem;
+}
+
+.flex-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--blocks-gap);
+}
