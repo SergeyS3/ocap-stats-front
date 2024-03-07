@@ -6,6 +6,16 @@ type Game = Omit<ApiAllMissions['missions'][0], 'endedAt' | 'duration'> & {
 
 type Player = ApiFullStat['stats'][0]
 
-type PlayerStat = Omit<ApiStatHistory['result'][0], 'dateTime'> & {
-  dateTime: Date
+type PlayerStats = {
+  games: number
+  deaths: number
+  frags: number
+  teamKills: number
+  statHistory: (Omit<ApiOcapHistory['scores'][0], 'dateTime'> & {
+    isPlayed: boolean
+    isDead: boolean
+    frags: number
+    teamKills: number
+    dateTime: Date
+  })[]
 }

@@ -15,8 +15,8 @@ export const fetchPlayers = async (project: ProjectCode): Promise<Player[]> => {
   return convertPlayersInfo(res)
 }
 
-export const fetchPlayerStats = async (project: ProjectCode, player: string): Promise<PlayerStat[]> => {
-  const res = await fetchApi<ApiStatHistory>(`/${project}/statHistory`, { player, untaged: false })
+export const fetchPlayerHistory = async (project: ProjectCode, player: string): Promise<PlayerStats> => {
+  const res = await fetchApi<ApiOcapHistory>(`/${project}/ocapHistory`, { player })
 
   return convertPlayerStatsInfo(res)
 }
