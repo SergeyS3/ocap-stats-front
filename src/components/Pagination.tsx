@@ -12,9 +12,10 @@ type Props<T> = {
   items: T[]
   pageSize: number
   onPageSet: (pageItems: T[]) => any
+  hasNumbers?: boolean
 }
 
-const Pagination = <T, >({ items, pageSize, onPageSet }: Props<T>) => {
+const Pagination = <T, >({ items, pageSize, onPageSet, hasNumbers }: Props<T>) => {
   const [pageNumber, setPageNumber] = useState(1)
 
   const paginatedItems = useMemo(() => arrayChunk(items, pageSize), [items, pageSize])
@@ -34,35 +35,36 @@ const Pagination = <T, >({ items, pageSize, onPageSet }: Props<T>) => {
 
     addPage(pageNumber > 1 ? pageNumber - 1 : null, '<')
 
-    if (pagesCount > 5) {
-      addPage(1)
+    if (hasNumbers)
+      if (pagesCount > 5) {
+        addPage(1)
 
-      if (pageNumber > 4)
-        addDotsPage(1, pageNumber - 2)
+        if (pageNumber > 4)
+          addDotsPage(1, pageNumber - 2)
 
-      if (pageNumber > 3)
-        addPage(pageNumber - 2)
-      if (pageNumber > 2)
-        addPage(pageNumber - 1)
-      if (pageNumber > 1 && pageNumber < pagesCount)
-        addPage(pageNumber)
-      if (pageNumber < pagesCount - 1)
-        addPage(pageNumber + 1)
-      if (pageNumber < pagesCount - 2)
-        addPage(pageNumber + 2)
+        if (pageNumber > 3)
+          addPage(pageNumber - 2)
+        if (pageNumber > 2)
+          addPage(pageNumber - 1)
+        if (pageNumber > 1 && pageNumber < pagesCount)
+          addPage(pageNumber)
+        if (pageNumber < pagesCount - 1)
+          addPage(pageNumber + 1)
+        if (pageNumber < pagesCount - 2)
+          addPage(pageNumber + 2)
 
-      if (pageNumber < pagesCount - 4)
-        addDotsPage(pageNumber + 2, pagesCount)
+        if (pageNumber < pagesCount - 4)
+          addDotsPage(pageNumber + 2, pagesCount)
 
-      addPage(pagesCount)
-    } else
-      for (let i = 1; i <= pagesCount; i++)
-        addPage(i)
+        addPage(pagesCount)
+      } else
+        for (let i = 1; i <= pagesCount; i++)
+          addPage(i)
 
     addPage(pageNumber < pagesCount ? pageNumber + 1 : null, '>')
 
     return pages
-  }, [pageNumber, pagesCount])
+  }, [pageNumber, pagesCount, hasNumbers])
 
   useEffect(() => {
     setPageNumber(1)

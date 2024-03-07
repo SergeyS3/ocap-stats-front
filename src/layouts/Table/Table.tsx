@@ -36,7 +36,7 @@ const Table = <T, >({ cols, rows, isFetching, refetch, defaultSortField }: Props
           </button>
         </div>
       </div>
-      <table>
+      <table className='w100'>
         <TableHead cols={cols} rows={filteredRows} defaultSortField={defaultSortField} onSortChange={setSortedRows} />
         {!isFetching &&
           <tbody>

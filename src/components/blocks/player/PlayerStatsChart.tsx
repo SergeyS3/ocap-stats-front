@@ -4,7 +4,7 @@ import Block from '@/layouts/Block'
 
 
 type Props = {
-  playerStats: PlayerStat[]
+  playerStats: PlayerStats
 }
 
 const PlayerStatsChart = ({ playerStats }: Props) => {
@@ -16,25 +16,17 @@ const PlayerStatsChart = ({ playerStats }: Props) => {
     let gamesStreak: Date[] = []
 
     // eslint-disable-next-line @typescript-eslint/no-for-in-array
-    for (const i in playerStats) {
-      const prevStat = i ? playerStats[+i - 1]! : null
-      const stat = playerStats[i]!
-
-      const getDiff = (key: keyof PickByType<PlayerStat, number>) => prevStat ? stat[key] - prevStat[key] : stat[key]
-
-      const isPlayed = !!getDiff('games')
-      const isLast = +i === playerStats.length - 1
-
+    for (const stat of playerStats.statHistory) {
       frags.push({
         date: stat.dateTime,
-        value: getDiff('frags'),
+        value: stat.frags,
       })
       teamKills.push({
         date: stat.dateTime,
-        value: -getDiff('teamKills'),
+        value: -stat.teamKills,
       })
 
-      if (isPlayed && !isLast)
+      if (stat.isPlayed && stat !== playerStats.statHistory.at(-1))
         gamesStreak.push(stat.dateTime)
       else if (gamesStreak.length) {
         const additionalWidth = 1000 * 60 * 15
