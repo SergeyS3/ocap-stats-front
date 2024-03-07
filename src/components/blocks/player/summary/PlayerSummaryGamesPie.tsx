@@ -3,33 +3,27 @@ import EChartsPie from '@/components/echarts/EChartsPie'
 
 
 type Props = {
-  playerStats: PlayerStat[]
+  playerStats: PlayerStats
 }
 
 const PlayerSummaryGamesPie = ({ playerStats }: Props) => {
   const gamesData: EChartsPieData = useMemo(() => {
-    if (!playerStats.length)
-      return []
-
-    const firstStat = playerStats.find(s => s.games === 1)!
-    const lastStat = playerStats.at(-1)!
-
-    const gamesDelta = playerStats.length - (firstStat.index + 1)
+    const firstStat = playerStats.statHistory.find(s => s.isPlayed)!
 
     return [
       {
         name: 'Выжил',
-        value: lastStat.games - lastStat.deaths,
+        value: playerStats.games - playerStats.deaths,
         color: '#73c0de',
       },
       {
         name: 'Убит игроком',
-        value: lastStat.deaths,
+        value: playerStats.deaths,
         color: '#5470c6',
       },
       {
         name: 'Не присутствовал',
-        value: playerStats.length - lastStat.games - gamesDelta,
+        value: firstStat.index + 1 - playerStats.games,
         color: '#fac858',
       },
     ] satisfies EChartsPieData

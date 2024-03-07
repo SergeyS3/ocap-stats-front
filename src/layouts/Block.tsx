@@ -7,8 +7,10 @@ type Props = PropsWithChildren<{
 }>
 
 const Block = ({ children, fullWidth = false }: Props) =>
-  <div className={`block ${fullWidth ? 'full-width' : ''}`}>
-    {children}
+  <div>
+    <div className={`block ${fullWidth ? 'full-width' : ''}`}>
+      {children}
+    </div>
   </div>
 
 export default Block

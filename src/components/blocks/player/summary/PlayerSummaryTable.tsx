@@ -4,14 +4,13 @@ import { round } from '@/utils/number'
 
 
 type Props = {
-  playerStats: PlayerStat[]
+  playerStats: PlayerStats
 }
 
 const PlayerSummaryTable = ({ playerStats }: Props) => {
   const { player } = useParams()
 
-  const firstStat = playerStats.find(s => s.games === 1)!
-  const lastStat = playerStats.at(-1)!
+  const firstStat = playerStats.statHistory.find(s => s.isPlayed)!
 
   const rows: { label: string, value: string | number }[] = [
     {
@@ -20,19 +19,19 @@ const PlayerSummaryTable = ({ playerStats }: Props) => {
     },
     {
       label: 'Сыграно игр',
-      value: lastStat.games,
+      value: playerStats.games,
     },
     {
       label: 'Фрагов',
-      value: lastStat.frags,
+      value: playerStats.frags,
     },
     {
       label: 'Тимкиллов',
-      value: lastStat.teamKills,
+      value: playerStats.teamKills,
     },
     {
       label: 'Выживаемость',
-      value: `${round(100 / lastStat.games * lastStat.deaths, 2)}%`,
+      value: `${round(100 / playerStats.games * playerStats.deaths, 2)}%`,
     },
   ]
 

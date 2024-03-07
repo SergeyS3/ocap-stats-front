@@ -5,7 +5,7 @@ import PlayerSummaryGamesPie from '@/components/blocks/player/summary/PlayerSumm
 
 
 type Props = {
-  playerStats: PlayerStat[]
+  playerStats: PlayerStats
 }
 
 const PlayerSummary = ({ playerStats }: Props) =>

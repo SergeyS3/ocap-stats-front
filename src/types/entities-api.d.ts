@@ -23,14 +23,24 @@ type ApiFullStat = {
   }[]
 }
 
-type ApiStatHistory = {
+type ApiOcapHistory = {
   player: string
-  result: {
+  scores: {
     index: number
+    missionName: string
     dateTime: string
-    games: number
-    frags: number
-    teamKills: number
-    deaths: number
+    score: {
+      present: boolean
+      frags: {
+        victim: string
+        timeMark: `${number}:${number}:${number}`
+        isTeamKill: boolean
+        isBot: boolean
+        weapon: string
+        distance: number
+      }[],
+      killers: string[]
+      teamKillers: string[]
+    }
   }[]
 }
