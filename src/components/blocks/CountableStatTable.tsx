@@ -1,16 +1,13 @@
 import Block from '@/layouts/Block'
 import { useMemo, useState } from 'react'
 import Pagination from '@/components/Pagination'
-import { NavLink } from 'react-router-dom'
+import VerticalTable, { VerticalTableRow } from '@/layouts/tables/vertical/VerticalTable'
 
 
-type Row = {
-  label: string
+export type CountableStatTableData = Map<string, {
   route?: string
   value: number
-}
-
-export type CountableStatTableData = Map<Row['label'], Omit<Row, 'label'>>
+}>
 
 type Props = {
   label: string
@@ -24,31 +21,14 @@ const CountableStatTable = ({ label, data }: Props) => {
       .map(entry => ({
         label: entry[0],
         ...entry[1],
-      }) satisfies Row)
+      }) satisfies VerticalTableRow)
   }, [data])
 
-  const [pageRows, setPageRows] = useState([] as Row[])
+  const [pageRows, setPageRows] = useState([] as VerticalTableRow[])
 
   return (
     <Block>
-      <table className='w100'>
-        <tbody>
-          <tr>
-            <th colSpan={2}>{label}</th>
-          </tr>
-          {pageRows.map(({ label, route, value }) =>
-            <tr key={label}>
-              <td>
-                {route
-                  ? <NavLink to={route}>{label}</NavLink>
-                  : label
-                }
-              </td>
-              <td>{value}</td>
-            </tr>,
-          )}
-        </tbody>
-      </table>
+      <VerticalTable label={label} rows={pageRows} className='w100' />
       <Pagination items={rows} pageSize={10} onPageSet={setPageRows} />
     </Block>
   )

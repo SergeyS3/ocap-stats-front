@@ -1,18 +1,18 @@
 import { arrayUniqueStrsCaseInsensitive, tableColWithFilterPredicate } from '@/utils/array'
 import { strCaseInsensitiveCompareFn, strIncludesCaseInsensitive } from '@/utils/string'
 import { JSX, useEffect, useMemo, useState } from 'react'
-import { Props as TableProps } from '@/layouts/Table/Table'
-import './TableFilter.css'
+import { Props as HorizontalTableProps } from '@/layouts/tables/horizontal/HorizontalTable'
+import './HorizontalTableFilter.css'
 import { FilterableTableCol } from '@/types/table'
 
 
 type Filter<T> = Record<FilterableTableCol<T>['filterField'], any>
 
-type Props<T> = Pick<TableProps<T>, 'cols' | 'rows'> & {
+type Props<T> = Pick<HorizontalTableProps<T>, 'cols' | 'rows'> & {
   onChange: (filteredRows: T[]) => any
 }
 
-const TableFilter = <T, >({ cols, rows, onChange }: Props<T>) => {
+const HorizontalTableFilter = <T, >({ cols, rows, onChange }: Props<T>) => {
   const [filter, setFilter] = useState({} as Filter<T>)
 
   const colsWithFilter = useMemo(() => cols.filter(tableColWithFilterPredicate), [cols])
@@ -81,4 +81,4 @@ const TableFilter = <T, >({ cols, rows, onChange }: Props<T>) => {
   )
 }
 
-export default TableFilter
+export default HorizontalTableFilter

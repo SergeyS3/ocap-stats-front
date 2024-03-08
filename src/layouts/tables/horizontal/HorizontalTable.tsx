@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import './Table.css'
+import './HorizontalTable.css'
 import Pagination from '@/components/Pagination'
-import TableFilter from '@/layouts/Table/TableFilter'
-import TableHead from '@/layouts/Table/TableHead'
+import HorizontalTableFilter from '@/layouts/tables/horizontal/HorizontalTableFilter'
+import HorizontalTableHead from '@/layouts/tables/horizontal/HorizontalTableHead'
 import { UseQueryResult } from '@tanstack/react-query'
 import Loader from '@/components/Loader'
 import { AnyTableCols, BaseTableCol } from '@/types/table'
@@ -17,7 +17,7 @@ export type Props<T> = {
   defaultSortField: NonNullable<BaseTableCol<T>['sortField']>
 }
 
-const Table = <T, >({ cols, rows, isFetching, refetch, defaultSortField }: Props<T>) => {
+const HorizontalTable = <T, >({ cols, rows, isFetching, refetch, defaultSortField }: Props<T>) => {
   const { project } = useProject()
   const [pageRows, setPageRows] = useState([] as T[])
   const [filteredRows, setFilteredRows] = useState([] as T[])
@@ -26,7 +26,7 @@ const Table = <T, >({ cols, rows, isFetching, refetch, defaultSortField }: Props
   return (
     <>
       <div className='table-toolbar'>
-        <TableFilter cols={cols} rows={rows} onChange={setFilteredRows} />
+        <HorizontalTableFilter cols={cols} rows={rows} onChange={setFilteredRows} />
         <div>
           <button
             className='form-control'
@@ -39,7 +39,12 @@ const Table = <T, >({ cols, rows, isFetching, refetch, defaultSortField }: Props
         </div>
       </div>
       <table className='w100'>
-        <TableHead cols={cols} rows={filteredRows} defaultSortField={defaultSortField} onSortChange={setSortedRows} />
+        <HorizontalTableHead
+          cols={cols}
+          rows={filteredRows}
+          defaultSortField={defaultSortField}
+          onSortChange={setSortedRows}
+        />
         {!isFetching &&
           <tbody>
             {pageRows.map((row, i) =>
@@ -53,9 +58,9 @@ const Table = <T, >({ cols, rows, isFetching, refetch, defaultSortField }: Props
         }
       </table>
       {isFetching && <Loader />}
-      <Pagination items={sortedRows} pageSize={15} onPageSet={setPageRows} />
+      <Pagination items={sortedRows} pageSize={15} onPageSet={setPageRows} hasNumbers />
     </>
   )
 }
 
-export default Table
+export default HorizontalTable
