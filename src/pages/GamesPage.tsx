@@ -2,7 +2,7 @@ import useProject from '@/hooks/useProject'
 import useTitle from '@/hooks/useTitle'
 import { fetchGames } from '@/services/bot-api'
 import Block from '@/layouts/Block'
-import Table from '@/layouts/Table/Table'
+import HorizontalTable from '@/layouts/tables/horizontal/HorizontalTable'
 import { gamesTableCols } from '@/config/tables/games'
 import { useQuery } from '@tanstack/react-query'
 
@@ -19,7 +19,7 @@ const GamesPage = () => {
 
   return (
     <Block fullWidth>
-      <Table
+      <HorizontalTable
         cols={gamesTableCols}
         rows={games}
         isFetching={isFetching || !!error}
