@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom'
 import { formatDate } from '@/utils/date'
 import { round } from '@/utils/number'
+import VerticalTable, { VerticalTableRow } from '@/layouts/tables/vertical/VerticalTable'
 
 
 type Props = {
@@ -12,7 +13,7 @@ const PlayerSummaryTable = ({ playerStats }: Props) => {
 
   const firstStat = playerStats.statHistory.find(s => s.isPlayed)!
 
-  const rows: { label: string, value: string | number }[] = [
+  const rows: VerticalTableRow[] = [
     {
       label: 'Играет с',
       value: formatDate(firstStat.dateTime),
@@ -37,21 +38,7 @@ const PlayerSummaryTable = ({ playerStats }: Props) => {
 
   return (
     <div>
-      <table>
-        <tbody>
-          <tr>
-            <th colSpan={2}>
-              {player}
-            </th>
-          </tr>
-          {rows.map(({ label, value }) =>
-            <tr key={label}>
-              <td>{label}</td>
-              <td>{value}</td>
-            </tr>,
-          )}
-        </tbody>
-      </table>
+      <VerticalTable label={player} rows={rows} />
     </div>
   )
 }

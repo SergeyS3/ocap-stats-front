@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react'
-import './TableHead.css'
+import './HorizontalTableHead.css'
 import { strCaseInsensitiveCompareFn } from '@/utils/string'
-import { Props as TableProps } from '@/layouts/Table/Table'
+import { Props as HorizontalTableProps } from '@/layouts/tables/horizontal/HorizontalTable'
 
 
-type Props<T> = Pick<TableProps<T>, 'cols' | 'rows' | 'defaultSortField'> & {
+type Props<T> = Pick<HorizontalTableProps<T>, 'cols' | 'rows' | 'defaultSortField'> & {
   onSortChange: (sortedRows: T[]) => any
 }
 
-const TableHead = <T, >({ cols, rows, defaultSortField, onSortChange }: Props<T>) => {
+const HorizontalTableHead = <T, >({ cols, rows, defaultSortField, onSortChange }: Props<T>) => {
   const [sort, setSort] = useState({
     field: defaultSortField,
     asc: !!cols.find(c => c.sortField === defaultSortField)?.sortAscByDefault,
@@ -53,4 +53,4 @@ const TableHead = <T, >({ cols, rows, defaultSortField, onSortChange }: Props<T>
   )
 }
 
-export default TableHead
+export default HorizontalTableHead

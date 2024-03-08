@@ -2,7 +2,7 @@ import useProject from '@/hooks/useProject'
 import useTitle from '@/hooks/useTitle'
 import { fetchPlayers } from '@/services/bot-api'
 import Block from '@/layouts/Block'
-import Table from '@/layouts/Table/Table'
+import HorizontalTable from '@/layouts/tables/horizontal/HorizontalTable'
 import { playersTableCols } from '@/config/tables/players'
 import { useQuery } from '@tanstack/react-query'
 
@@ -19,7 +19,7 @@ const PlayersPage = () => {
 
   return (
     <Block fullWidth>
-      <Table
+      <HorizontalTable
         cols={playersTableCols}
         rows={players}
         isFetching={isFetching || !!error}
