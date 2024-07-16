@@ -12,7 +12,7 @@ const Nav = () => {
       <ul>
         <li>
           <NavLink to='/' className='logo'>
-            <span className='logo-rb'>RB</span> <span className='logo-ocap'>OCAP</span> stats
+            RB stats
           </NavLink>
         </li>
         <li>
