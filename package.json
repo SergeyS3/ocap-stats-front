@@ -1,6 +1,6 @@
 {
   "name": "ocap-stats-front",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "RB OCAP stats frontend",
   "main": "index.js",
   "private": true,
