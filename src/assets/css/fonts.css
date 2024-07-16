@@ -4,9 +4,3 @@
     font-weight: 400;
     src: url('../fonts/Russo One.woff2') format('woff2');
 }
-@font-face {
-    font-family: 'BebasNeue';
-    font-style: normal;
-    font-weight: 700;
-    src: url('../fonts/BebasNeue Bold.otf') format('opentype');
-}
