@@ -1,16 +1,13 @@
 import { formatDatesRange } from '@/utils/date'
 import { AnyTableCols } from '@/types/table'
+import OcapLink from '@/components/links/OcapLink'
+import GameLink from '@/components/links/GameLink'
 
 
 export const gamesTableCols: AnyTableCols<Game> = [
   {
-    label: '#',
-    getVal: game => game.index,
-    filterField: false,
-  },
-  {
     label: 'Название',
-    getVal: game => game.missionName,
+    getVal: game => <GameLink game={game} />,
     sortField: 'missionName',
     sortAscByDefault: true,
     filterType: 'text',
@@ -57,12 +54,7 @@ export const gamesTableCols: AnyTableCols<Game> = [
   },
   {
     label: '',
-    getVal: game =>
-      <a
-        href={`https://ocap.red-bear.ru/?file=${game.missionFile}&zoom=2.3&x=-128&y=128`}
-        target='_blank'
-        rel='noreferrer'
-      >OCAP</a>,
+    getVal: game => <OcapLink missionFile={game.missionFile} />,
     filterField: false,
   },
 ]

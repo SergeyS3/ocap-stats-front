@@ -6,7 +6,7 @@ import { ToastContainer } from 'react-toastify'
 
 
 const Page = () =>
-  <>
+  <div className='page'>
     <Nav />
     <div>
       <Header />
@@ -15,6 +15,6 @@ const Page = () =>
         <ToastContainer />
       </main>
     </div>
-  </>
+  </div>
 
 export default Page

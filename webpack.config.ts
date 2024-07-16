@@ -45,6 +45,11 @@ export default (env: {}, argv: { mode?: Configuration['mode'] }) => {
             'css-loader',
           ],
         },
+        {
+          test: /\.svg$/,
+          use: 'file-loader',
+        },
+
       ],
     },
     plugins: [

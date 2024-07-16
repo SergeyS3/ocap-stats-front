@@ -15,6 +15,8 @@ import ApiFetchError from './errors/ApiFetchError'
 import routes from '@/config/routes'
 import Page from '@/layouts/Page'
 import PlayerPage from '@/pages/PlayerPage'
+import GamePage from '@/pages/GamePage'
+import { ModalContextProvider } from '@/context/ModalContext'
 
 
 const queryClient = new QueryClient({
@@ -38,9 +40,10 @@ const App = () =>
   <QueryClientProvider client={queryClient}>
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Page />}>
+        <Route path='/' element={<ModalContextProvider><Page /></ModalContextProvider>}>
           <Route index element={<HomePage />} />
           <Route path={routes.games(':project')} element={<GamesPage />} />
+          <Route path={routes.game(':project', ':id')} element={<GamePage />} />
           <Route path={routes.players(':project')} element={<PlayersPage />} />
           <Route path={routes.player(':project', ':player')} element={<PlayerPage />} />
           <Route path='*' element={<NotFoundPage />} />

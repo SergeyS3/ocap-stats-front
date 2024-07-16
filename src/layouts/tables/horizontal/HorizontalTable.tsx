@@ -12,7 +12,7 @@ export type Props<T> = {
   cols: AnyTableCols<T>
   rows: T[]
   isFetching: boolean
-  refetch: UseQueryResult['refetch']
+  refetch?: UseQueryResult['refetch']
   defaultSortField: NonNullable<BaseTableCol<T>['sortField']>
 }
 
@@ -25,16 +25,18 @@ const HorizontalTable = <T, >({ cols, rows, isFetching, refetch, defaultSortFiel
     <>
       <div className='table-toolbar'>
         <HorizontalTableFilter cols={cols} rows={rows} onChange={setFilteredRows} />
-        <div>
-          <button
-            className='form-control'
-            type='button'
-            style={{ fontSize: 20 }}
-            onClick={() => void refetch()}
-          >
-            ↻
-          </button>
-        </div>
+        {refetch &&
+          <div>
+            <button
+              className='form-control'
+              type='button'
+              style={{ fontSize: 20 }}
+              onClick={() => void refetch()}
+            >
+              ↻
+            </button>
+          </div>
+        }
       </div>
       <table className='w100'>
         <HorizontalTableHead
