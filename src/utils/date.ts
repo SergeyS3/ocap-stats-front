@@ -1,3 +1,6 @@
+import { parse } from 'tinyduration'
+
+
 const format = (date: DateConstructorParam, options: Intl.DateTimeFormatOptions): string =>
   new Intl.DateTimeFormat('ru', options).format(new Date(date))
 
@@ -13,3 +16,8 @@ export const formatDatesRange = (from: Date, to: Date): string =>
 
 export const formatDuration = (seconds: number): string =>
   formatTime(new Date((seconds + (new Date).getTimezoneOffset() * 60) * 1000), true)
+
+export const isoDurationToSeconds = (isoDuration: `P${string}`): number => {
+  const duration = parse(isoDuration)
+  return (duration.hours ?? 0) * 3600 + (duration.minutes ?? 0) * 60 + (duration.seconds ?? 0)
+}
