@@ -3,3 +3,5 @@ type PickByType<T, Value> = {
 }
 
 type DateConstructorParam = ConstructorParameters<typeof Date>[0]
+
+type DurationIso8601 = `P${string}`

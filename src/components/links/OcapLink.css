@@ -1,0 +1,5 @@
+.ocap-link img {
+    width: 1rem;
+    margin-bottom: -.15rem;
+    transform: rotateZ(45deg)
+}

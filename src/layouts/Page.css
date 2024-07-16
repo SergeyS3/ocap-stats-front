@@ -3,13 +3,13 @@ body {
     font-size: 16px;
 }
 
-body > div {
+.page {
     display: grid;
     grid-template-columns: 270px auto;
     grid-template-rows: 100%;
 }
 
-body > div > div {
+.page > div {
     display: grid;
     grid-template-columns: 100%;
     grid-template-rows: 64px auto;

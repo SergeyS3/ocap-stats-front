@@ -1,24 +1,100 @@
-import { parse } from 'tinyduration'
-import { formatDuration } from '@/utils/date'
+import { formatDuration, isoDurationToSeconds } from '@/utils/date'
 
 
-export const convertGamesInfo = (apiAllMissions: ApiAllMissions): Game[] => {
+const getGameDates = (apiGame: { endedAt: string, duration: DurationIso8601 }): GameDates => {
+  const endedAt = new Date(apiGame.endedAt)
+
+  const durationInSeconds = isoDurationToSeconds(apiGame.duration)
+
+  return {
+    startedAt: new Date(+endedAt - durationInSeconds * 1000),
+    endedAt,
+    duration: formatDuration(durationInSeconds),
+  }
+}
+
+export const convertGamesInfo = (apiAllMissions: ApiAllMissions, gamesCount: number): Game[] => {
   const res = [] as Game[]
 
-  for (const apiGame of apiAllMissions.missions) {
-    const endedAt = new Date(apiGame.endedAt)
-
-    const duration = parse(apiGame.duration)
-    const durationInSeconds = (duration.hours ?? 0) * 3600 + (duration.minutes ?? 0) * 60 + (duration.seconds ?? 0)
-
+  for (const apiGame of apiAllMissions.missions)
     res.push({
       ...apiGame,
       missionName: apiGame.missionName.trim(),
-      duration: formatDuration(durationInSeconds),
-      startedAt: new Date(+endedAt - durationInSeconds * 1000),
-      endedAt,
+      ...getGameDates(apiGame),
+      id: gamesCount - apiGame.index,
+    })
+
+  return res
+}
+
+export const convertGameStatsInfo = (apiMission: ApiMission): GameStats => ({
+  ...apiMission.missionInfo,
+  ...getGameDates(apiMission.missionInfo),
+})
+
+export const convertGameScores = (apiOcapStats: ApiOcapStats): GameScore[] => {
+  const fragsMap = apiOcapStats.scores.reduce((acc, score) => {
+    for (const frag of score.frags) {
+      if (!acc[score.player])
+        acc[score.player] = {}
+      if (!acc[score.player]![frag.victim])
+        acc[score.player]![frag.victim] = []
+
+      acc[score.player]![frag.victim]!.push(frag)
+    }
+
+    return acc
+  }, {} as Record<GameScore['player'], Record<GameScore['player'], GameScoreKill[]>>)
+
+  const res = [] as GameScore[]
+  for (const score of apiOcapStats.scores) {
+    const convertKiller = (killer: GameScore['player']): GameScoreKill => {
+      const frag = fragsMap[killer]?.[score.player]?.shift()
+      if (!frag)
+        throw new Error('Frag not found')
+
+      return {
+        ...frag,
+        victim: killer,
+      }
+    }
+
+    const frags = score.frags.filter(f => !f.isTeamKill)
+    const teamKills = score.frags.filter(f => f.isTeamKill)
+    const killers = score.killers.map(convertKiller)
+    const teamKillers = score.teamKillers.map(convertKiller)
+
+    res.push({
+      player: score.player,
+      frags,
+      teamKills,
+      killers,
+      teamKillers,
+      fragsCount: frags.length,
+      teamKillsCount: teamKills.length,
+      killersCount: killers.length,
+      teamKillersCount: teamKillers.length,
     })
   }
+
+  return res
+}
+
+export const convertGameSquadScores = (
+  { squadsOnline, playersDied }: ApiSquadsOnline,
+  { squadCutlets }: ApiSquadCutlets,
+  { squadUncutlets }: ApiSquadUncutlets,
+): GameSquadScore[] => {
+  const res = [] as GameSquadScore[]
+
+  for (const [name, online] of Object.entries(squadsOnline))
+    res.push({
+      name,
+      online,
+      died: playersDied[name]!,
+      frags: squadCutlets[name]!,
+      teamKills: squadUncutlets[name]!,
+    })
 
   return res
 }

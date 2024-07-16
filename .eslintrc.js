@@ -70,6 +70,7 @@ module.exports = {
           case: 'kebabCase',
           ignore: [/^use.*\.ts$/, /Error\.ts/, /\.tsx$/],
         }],
+        'unicorn/no-array-reduce': 'off',
         'unicorn/no-array-callback-reference': 'off',
         'unicorn/no-null': 'off',
         'unicorn/prefer-dom-node-append': 'off',
