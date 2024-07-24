@@ -1,13 +1,16 @@
 import { useMemo } from 'react'
 import EChartsPie from '@/components/echarts/EChartsPie'
+import usePlayerQuery from '@/hooks/queries/usePlayerQuery'
+import Loader from '@/components/Loader'
 
 
-type Props = {
-  playerStats: PlayerStats
-}
+const PlayerSummaryGamesPie = () => {
+  const { isFetching, error, data: playerStats } = usePlayerQuery()
 
-const PlayerSummaryGamesPie = ({ playerStats }: Props) => {
   const gamesData: EChartsPieData = useMemo(() => {
+    if (!playerStats)
+      return []
+
     const firstStat = playerStats.statHistory.find(s => s.isPlayed)!
 
     return [
@@ -28,6 +31,9 @@ const PlayerSummaryGamesPie = ({ playerStats }: Props) => {
       },
     ] satisfies EChartsPieData
   }, [playerStats])
+
+  if (isFetching || error || !playerStats)
+    return <Loader />
 
   return <EChartsPie data={gamesData} />
 }
