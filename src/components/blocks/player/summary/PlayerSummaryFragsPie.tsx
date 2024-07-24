@@ -1,12 +1,15 @@
 import { useMemo } from 'react'
 import EChartsPie from '@/components/echarts/EChartsPie'
+import usePlayerQuery from '@/hooks/queries/usePlayerQuery'
+import Loader from '@/components/Loader'
 
 
-type Props = {
-  playerStats: PlayerStats
-}
+const PlayerSummaryFragsPie = () => {
+  const { isFetching, error, data: playerStats } = usePlayerQuery()
 
-const PlayerSummaryFragsPie = ({ playerStats }: Props) => {
+  if (isFetching || error || !playerStats)
+    return <Loader />
+
   const gamesData: EChartsPieData = useMemo(() => [
     {
       name: 'Фраги',

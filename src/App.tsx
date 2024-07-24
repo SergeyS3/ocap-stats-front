@@ -25,6 +25,7 @@ const queryClient = new QueryClient({
       networkMode: 'always',
       refetchOnWindowFocus: false,
       retry: false,
+      staleTime: 20
     },
   },
   queryCache: new QueryCache({

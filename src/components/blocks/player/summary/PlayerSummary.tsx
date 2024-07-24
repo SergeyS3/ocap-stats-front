@@ -4,17 +4,13 @@ import PlayerSummaryFragsPie from '@/components/blocks/player/summary/PlayerSumm
 import PlayerSummaryGamesPie from '@/components/blocks/player/summary/PlayerSummaryGamesPie'
 
 
-type Props = {
-  playerStats: PlayerStats
-}
-
-const PlayerSummary = ({ playerStats }: Props) =>
+const PlayerSummary = () =>
   <Block>
     <div className='flex-wrap'>
-      <PlayerSummaryTable playerStats={playerStats} />
+      <PlayerSummaryTable />
       <div className='flex-wrap'>
-        <PlayerSummaryFragsPie playerStats={playerStats} />
-        <PlayerSummaryGamesPie playerStats={playerStats} />
+        <PlayerSummaryFragsPie />
+        <PlayerSummaryGamesPie />
       </div>
     </div>
   </Block>
