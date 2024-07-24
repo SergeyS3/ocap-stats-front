@@ -12,7 +12,6 @@ const GamesPage = () => {
   const { isFetching, error, refetch, data: games } = useQuery({
     queryKey: ['games', project.code],
     queryFn: () => fetchGames(project.code),
-    initialData: [],
   })
 
   useTitle(`${project.name}: Игры`)
@@ -21,7 +20,7 @@ const GamesPage = () => {
     <Block fullWidth>
       <HorizontalTable
         cols={gamesTableCols}
-        rows={games}
+        rows={games ?? []}
         isFetching={isFetching || !!error}
         refetch={refetch}
         defaultSortField='startedAt'

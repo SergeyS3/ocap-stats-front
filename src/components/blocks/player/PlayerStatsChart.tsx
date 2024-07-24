@@ -1,14 +1,17 @@
 import { useMemo } from 'react'
 import EChartsChart from '@/components/echarts/EChartsChart'
 import Block from '@/layouts/Block'
+import usePlayerQuery from '@/hooks/queries/usePlayerQuery'
+import Loader from '@/components/Loader'
 
 
-type Props = {
-  playerStats: PlayerStats
-}
+const PlayerStatsChart = () => {
+  const { isFetching, error, data: playerStats } = usePlayerQuery()
 
-const PlayerStatsChart = ({ playerStats }: Props) => {
   const chartItems: EChartsChartItem[] = useMemo(() => {
+    if (!playerStats)
+      return []
+
     const frags = [] as EChartsChartLineData
     const teamKills = [] as EChartsChartLineData
     const games = [] as EChartsChartAreaData
@@ -59,6 +62,9 @@ const PlayerStatsChart = ({ playerStats }: Props) => {
       },
     ] satisfies EChartsChartItem[]
   }, [playerStats])
+
+  if (isFetching || error || !playerStats)
+    return <Loader />
 
   return (
     <Block fullWidth>

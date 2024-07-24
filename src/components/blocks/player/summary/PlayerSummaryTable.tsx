@@ -2,14 +2,16 @@ import { useParams } from 'react-router-dom'
 import { formatDate } from '@/utils/date'
 import { round } from '@/utils/number'
 import VerticalTable, { VerticalTableRow } from '@/layouts/tables/vertical/VerticalTable'
+import Loader from '@/components/Loader'
+import usePlayerQuery from '@/hooks/queries/usePlayerQuery'
 
 
-type Props = {
-  playerStats: PlayerStats
-}
-
-const PlayerSummaryTable = ({ playerStats }: Props) => {
+const PlayerSummaryTable = () => {
   const { player } = useParams()
+  const { isFetching, error, data: playerStats } = usePlayerQuery()
+
+  if (isFetching || error || !playerStats)
+    return <Loader />
 
   const firstStat = playerStats.statHistory.find(s => s.isPlayed)!
 

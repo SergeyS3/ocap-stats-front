@@ -1,8 +1,7 @@
 import useTitle from '@/hooks/useTitle'
 import { useParams } from 'react-router-dom'
 import useProject from '@/hooks/useProject'
-import { useQuery } from '@tanstack/react-query'
-import { fetchPlayerHistory } from '@/services/bot-api'
+import usePlayerQuery from '@/hooks/queries/usePlayerQuery'
 import Block from '@/layouts/Block'
 import Loader from '@/components/Loader'
 import PlayerStatsChart from '@/components/blocks/player/PlayerStatsChart'
@@ -15,10 +14,7 @@ import PlayerSummary from '@/components/blocks/player/summary/PlayerSummary'
 const PlayerPage = () => {
   const { project } = useProject()
   const { player } = useParams()
-  const { isFetching, error, data: playerStats } = useQuery({
-    queryKey: ['player', project, player],
-    queryFn: () => fetchPlayerHistory(project.code, player!),
-  })
+  const { isFetching, error, data: playerStats } = usePlayerQuery()
 
   useTitle(`${project.name}: Игрок ${player}`)
 
@@ -77,7 +73,7 @@ const PlayerPage = () => {
 
   return (
     <>
-      <PlayerSummary playerStats={playerStats} />
+      <PlayerSummary />
       <div className='flex-wrap'>
         <CountableStatTable label='Фраги' data={frags} />
         <CountableStatTable label='Тимкиллы' data={teamKills} />
@@ -86,7 +82,7 @@ const PlayerPage = () => {
         <CountableStatTable label='Убит врагом' data={killedBy} />
         <CountableStatTable label='Убит тимкиллом' data={teamKilledBy} />
       </div>
-      <PlayerStatsChart playerStats={playerStats} />
+      <PlayerStatsChart />
     </>
   )
 }

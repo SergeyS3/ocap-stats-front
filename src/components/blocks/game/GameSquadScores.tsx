@@ -15,7 +15,6 @@ const GameSquadScores = ({ index }: Props) => {
   const { isFetching, error, data: gameScores } = useQuery({
     queryKey: ['game_squad_scores', project.code, index],
     queryFn: () => fetchGameSquadScores(project.code, index),
-    initialData: [],
   })
 
   if (isFetching || error)
@@ -57,7 +56,7 @@ const GameSquadScores = ({ index }: Props) => {
   return (
     <HorizontalTable
       cols={gameStatsTableCols}
-      rows={gameScores}
+      rows={gameScores ?? []}
       isFetching={isFetching || !!error}
       defaultSortField='frags'
     />
