@@ -5,17 +5,19 @@ import TerserPlugin from 'terser-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin'
 import tsconfig from './tsconfig.json'
-import { Configuration, DefinePlugin } from 'webpack'
+import { Configuration, EnvironmentPlugin } from 'webpack'
+import { Configuration as DevServerConfiguration } from 'webpack-dev-server'
 import dotenv from 'dotenv'
 
 
 dotenv.config()
 
-type Config = Configuration & Required<Pick<Configuration, 'plugins'>>
+type Config = Configuration & Required<Pick<Configuration, 'plugins'>> & { devServer?: DevServerConfiguration }
+type WebpackConfigurationGenerator = (env: {}, argv: { mode?: Configuration['mode'] }) => Config
 
 const srcDir = path.join(__dirname, 'src')
 
-export default (env: {}, argv: { mode?: Configuration['mode'] }) => {
+const config: WebpackConfigurationGenerator = (env, argv) => {
   const config: Config = {
     mode: argv.mode || 'development',
     entry: {
@@ -47,9 +49,8 @@ export default (env: {}, argv: { mode?: Configuration['mode'] }) => {
         },
         {
           test: /\.svg$/,
-          use: 'file-loader',
+          type: 'asset/resource',
         },
-
       ],
     },
     plugins: [
@@ -60,15 +61,14 @@ export default (env: {}, argv: { mode?: Configuration['mode'] }) => {
         title: 'Loading...',
         favicon: `${srcDir}/assets/images/favicon.ico`,
       }),
-      new DefinePlugin({
-        'process.env': ['BOT_API_URL'].reduce((acc, varName) => ({
-          ...acc,
-          [varName]: JSON.stringify(process.env[varName]),
-        }), {}),
-      }),
+      new EnvironmentPlugin(['BOT_API_URL']),
     ],
     stats: {
       modules: false,
+    },
+    performance: {
+      maxEntrypointSize: 1_500_000,
+      maxAssetSize: 1_500_000,
     },
   }
 
@@ -88,8 +88,16 @@ export default (env: {}, argv: { mode?: Configuration['mode'] }) => {
         }),
       ],
     }
-  } else
+  } else {
     config.devtool = 'source-map'
+    config.devServer = {
+      historyApiFallback: true,
+      hot: false,
+      port: process.env.PORT,
+    }
+  }
 
   return config
 }
+
+export default config
