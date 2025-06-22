@@ -1,4 +1,3 @@
-import 'react-toastify/dist/ReactToastify.min.css'
 import '@/assets/css/index.css'
 import '@/assets/css/colors.css'
 import '@/assets/css/fonts.css'
