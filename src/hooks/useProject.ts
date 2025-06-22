@@ -46,7 +46,7 @@ const useProject = (): UseProjectResult => {
 
   const setProject: UseProjectResult['setProject'] = code => {
     setLocalStorageItem('project', code)
-    navigate(pathname.replace(`/${project.code}/`, `/${code}/`))
+    void navigate(pathname.replace(`/${project.code}/`, `/${code}/`))
   }
 
   return { project, setProject }

@@ -1,14 +1,16 @@
 import { CSSProperties, useLayoutEffect, useRef } from 'react'
-import * as echarts from 'echarts'
-import { EChartOption, ECharts as EChartsChart } from 'echarts'
+import * as echartsCore from 'echarts/core'
+import { EChartsOption, EChartsType, init } from 'echarts/types/dist/shared'
 import 'echarts/i18n/langRU'
 
 
+const echarts = echartsCore as { init: typeof init } // fixing echarts core typings error
+
 export type Props = {
-  options: EChartOption
+  options: EChartsOption
   height: CSSProperties['height']
   width: CSSProperties['width']
-  onInit?: (chart: EChartsChart) => unknown
+  onInit?: (chart: EChartsType) => unknown
 }
 
 const ECharts = ({ options, height, width, onInit }: Props) => {

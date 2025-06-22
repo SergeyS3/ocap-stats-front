@@ -1,8 +1,10 @@
 import { useCallback, useMemo } from 'react'
-import { EChartOption } from 'echarts'
+import { RegisteredSeriesOption } from 'echarts/types/dist/shared'
 import { formatDate, formatTime } from '@/utils/date'
 import ECharts, { Props as EChartsProps } from '@/components/echarts/ECharts'
 
+
+type Series = RegisteredSeriesOption['line' | 'bar' | 'pie']
 
 type Props = {
   items: EChartsChartItem[]
@@ -13,7 +15,7 @@ type Props = {
 const EChartsChart = ({ items, stack, noNegative }: Props) => {
   const options: EChartsProps['options'] = useMemo(() => {
     const colors: string[] = []
-    const series: EChartOption.Series[] = []
+    const series: Series[] = []
 
     let min = Number.POSITIVE_INFINITY
     let max = Number.NEGATIVE_INFINITY
@@ -21,25 +23,21 @@ const EChartsChart = ({ items, stack, noNegative }: Props) => {
     for (const { color, name, type, data } of items) {
       colors.push(color)
 
-      const seriesData: EChartOption.Series = {
+      const seriesData: Series = {
         name,
         type: type === 'area' ? 'bar' : type,
         stack: stack ? 's' : undefined,
       }
 
       if (type === 'area')
-        seriesData.markArea = {
+        (seriesData as RegisteredSeriesOption['bar']).markArea = {
           itemStyle: {
             color,
           },
-          // ECharts typings error
-          // eslint-disable-next-line
-          data: data.map(({ dateFrom, dateTo }) => [{ xAxis: dateFrom }, { xAxis: dateTo }]) as any,
+          data: data.map(({ dateFrom, dateTo }) => [{ xAxis: dateFrom }, { xAxis: dateTo }]),
         }
       else {
-        // ECharts typings error
-        // eslint-disable-next-line
-        seriesData.data = data.map(({ date, value }) => [date, value]) as any
+        seriesData.data = data.map(({ date, value }) => [date, value])
 
         for (const { value } of data) {
           if (value < min)
@@ -51,26 +49,21 @@ const EChartsChart = ({ items, stack, noNegative }: Props) => {
 
       if (noNegative)
         seriesData.tooltip = {
-          valueFormatter: v => Math.abs(+v),
+          valueFormatter: v => '' + Math.abs(+v!),
         }
 
       series.push(seriesData)
     }
 
     return {
-      xAxis: [
-        {
-          type: 'time',
-          boundaryGap: false,
-        },
-      ],
+      xAxis: [{ type: 'time' }],
       yAxis: [
         {
           min: min - 1,
           max: max + 1,
           type: 'value',
           axisLabel: {
-            formatter: noNegative ? v => Math.abs(+v) : undefined,
+            formatter: noNegative ? v => '' + Math.abs(v) : undefined,
           },
         },
       ],
