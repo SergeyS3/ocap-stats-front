@@ -1,13 +1,12 @@
-import { ProjectCode } from '@/hooks/useProject'
 import { useCallback } from 'react'
 
 
 type LocalStorage = {
-  project: ProjectCode
+  project: string
 }
 
 type UseLocalStorageResult = {
-  getLocalStorageItem: <K extends keyof LocalStorage>(key: K) => LocalStorage[K]
+  getLocalStorageItem: <K extends keyof LocalStorage>(key: K) => LocalStorage[K] | null
   setLocalStorageItem: <K extends keyof LocalStorage>(key: K, val: LocalStorage[K]) => void
 }
 

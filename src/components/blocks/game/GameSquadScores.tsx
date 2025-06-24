@@ -17,7 +17,7 @@ const GameSquadScores = ({ index }: Props) => {
     queryFn: () => fetchGameSquadScores(project.code, index),
   })
 
-  if (isFetching || error)
+  if (error)
     return <Loader />
 
   const gameStatsTableCols: AnyTableCols<GameSquadScore> = [

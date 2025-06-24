@@ -89,6 +89,9 @@ const config: WebpackConfigurationGenerator = (env, argv) => {
       ],
     }
   } else {
+    if (!process.env.PORT)
+      throw new Error('Env PORT is not set')
+
     config.devtool = 'source-map'
     config.devServer = {
       historyApiFallback: true,

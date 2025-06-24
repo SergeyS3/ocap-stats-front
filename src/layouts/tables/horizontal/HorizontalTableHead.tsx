@@ -5,7 +5,7 @@ import { Props as HorizontalTableProps } from '@/layouts/tables/horizontal/Horiz
 
 
 type Props<T> = Pick<HorizontalTableProps<T>, 'cols' | 'rows' | 'defaultSortField'> & {
-  onSortChange: (sortedRows: T[]) => any
+  onSortChange: (sortedRows: T[]) => unknown
 }
 
 const HorizontalTableHead = <T, >({ cols, rows, defaultSortField, onSortChange }: Props<T>) => {

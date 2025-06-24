@@ -32,11 +32,13 @@ const EChartsChart = ({ items, stack, noNegative }: Props) => {
           itemStyle: {
             color,
           },
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+          // ECharts typings error
+          // eslint-disable-next-line
           data: data.map(({ dateFrom, dateTo }) => [{ xAxis: dateFrom }, { xAxis: dateTo }]) as any,
         }
       else {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        // ECharts typings error
+        // eslint-disable-next-line
         seriesData.data = data.map(({ date, value }) => [date, value]) as any
 
         for (const { value } of data) {

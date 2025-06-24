@@ -20,7 +20,7 @@ const GameScores = ({ index, missionFile }: Props) => {
     queryFn: () => fetchGameScores(project.code, index),
   })
 
-  if (isFetching || error)
+  if (error)
     return <Loader />
 
   const gameStatsTableCols: AnyTableCols<GameScore> = [

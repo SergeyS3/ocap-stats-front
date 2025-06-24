@@ -4,6 +4,7 @@ import {
 } from '@/utils/api-converters'
 import ApiFetchError from '@/errors/ApiFetchError'
 import { ProjectCode } from '@/hooks/useProject'
+import { makeUrl, MakeUrlParams } from '@/utils/string'
 
 
 export const fetchGamesCount = async (project: ProjectCode): Promise<number> => {
@@ -61,11 +62,11 @@ export const fetchPlayerHistory = async (project: ProjectCode, player: string): 
   return convertPlayerStatsInfo(res)
 }
 
-const fetchApi = async <T>(path: string, params?: Record<string, any>): Promise<T> => {
-  if (params)
-    path += '?' + new URLSearchParams(params).toString()
+const fetchApi = async <T>(path: string, params?: MakeUrlParams): Promise<T> => {
+  if (!process.env.BOT_API_URL)
+    throw new Error('Env BOT_API_URL is not set')
 
-  const res = await fetch(process.env.BOT_API_URL + path, {
+  const res = await fetch(makeUrl(process.env.BOT_API_URL + path, params), {
     method: 'GET',
     headers: {
       Accept: 'application/json',
