@@ -93,6 +93,7 @@ type ApiSquads = {
   }[]
 }
 
+/* eslint-disable @typescript-eslint/consistent-indexed-object-style */
 type ApiSquadStat<T extends string> = {
   dateTime: string
   missionName: string

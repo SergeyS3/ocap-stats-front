@@ -11,7 +11,7 @@ type Page = {
 type Props<T> = {
   items: T[]
   pageSize: number
-  onPageSet: (pageItems: T[]) => any
+  onPageSet: (pageItems: T[]) => unknown
   hasNumbers?: boolean
 }
 
@@ -89,7 +89,7 @@ const Pagination = <T, >({ items, pageSize, onPageSet, hasNumbers }: Props<T>) =
             className={!label && number === pageNumber ? 'active' : ''}
             type='button'
             key={'' + label + number}
-            onClick={() => setPageNumber(number as number)}
+            onClick={() => setPageNumber(number!)}
             title={'' + (number ?? '')}
             disabled={!number}
           >

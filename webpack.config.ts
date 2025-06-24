@@ -12,6 +12,9 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
+if (!process.env.PORT)
+  throw new Error('Env PORT is not set')
+
 type Config = Configuration & Required<Pick<Configuration, 'plugins'>> & { devServer?: DevServerConfiguration }
 type WebpackConfigurationGenerator = (env: {}, argv: { mode?: Configuration['mode'] }) => Config
 

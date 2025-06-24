@@ -8,7 +8,7 @@ export type Props = {
   options: EChartOption
   height: CSSProperties['height']
   width: CSSProperties['width']
-  onInit?: (chart: EChartsChart) => any
+  onInit?: (chart: EChartsChart) => unknown
 }
 
 const ECharts = ({ options, height, width, onInit }: Props) => {

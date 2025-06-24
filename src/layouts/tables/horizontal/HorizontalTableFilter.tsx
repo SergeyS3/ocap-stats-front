@@ -6,10 +6,10 @@ import './HorizontalTableFilter.css'
 import { FilterableTableCol } from '@/types/table'
 
 
-type Filter<T> = Record<FilterableTableCol<T>['filterField'], any>
+type Filter<T> = Record<FilterableTableCol<T>['filterField'], string>
 
 type Props<T> = Pick<HorizontalTableProps<T>, 'cols' | 'rows'> & {
-  onChange: (filteredRows: T[]) => any
+  onChange: (filteredRows: T[]) => unknown
 }
 
 const HorizontalTableFilter = <T, >({ cols, rows, onChange }: Props<T>) => {
@@ -32,7 +32,7 @@ const HorizontalTableFilter = <T, >({ cols, rows, onChange }: Props<T>) => {
             case 'select':
               return rowVal === filterVal
             case 'date':
-              return (rowVal as Date).toISOString().indexOf(filterVal) === 0
+              return (rowVal as Date).toISOString().startsWith(filterVal)
           }
 
           return true

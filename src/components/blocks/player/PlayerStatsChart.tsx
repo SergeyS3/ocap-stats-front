@@ -17,8 +17,6 @@ const PlayerStatsChart = () => {
     const games = [] as EChartsChartAreaData
 
     let gamesStreak: Date[] = []
-
-    // eslint-disable-next-line @typescript-eslint/no-for-in-array
     for (const stat of playerStats.statHistory) {
       frags.push({
         date: stat.dateTime,

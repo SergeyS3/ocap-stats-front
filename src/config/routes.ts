@@ -1,4 +1,4 @@
-import { prepareRouteParam } from '@/utils'
+import { prepareRouteParam } from '@/utils/string'
 
 
 const routes = {
@@ -6,6 +6,6 @@ const routes = {
   game: (project: string, id: string | number) => `/${project}/games/${id}`,
   players: (project: string) => `/${project}/players`,
   player: (project: string, id: string) => `/${project}/players/${prepareRouteParam(id)}`,
-} as const satisfies Record<string, string | ((...args: any) => string)>
+} as const satisfies Record<string, string | ((...args: any[]) => string)>
 
 export default routes
