@@ -15,32 +15,38 @@ type UseProjectResult = {
   setProject: (code: ProjectCode) => void
 }
 
-const getProject = (code: ProjectCode): Project | undefined => projects.find(p => p.code === code)
+function getProject(code: ProjectCode): Project
+function getProject(code: string | null): Project | undefined
+function getProject(code: string | null): Project | undefined {
+  return projects.find(p => p.code === code)
+}
 
 const useProject = (): UseProjectResult => {
   const { getLocalStorageItem, setLocalStorageItem } = useLocalStorage()
-  const { project: urlProjectCode } = useParams<{ project: ProjectCode }>()
+  const { project: urlProjectCode } = useParams<{ project: string }>()
   const { pathname } = useLocation()
   const navigate = useNavigate()
 
-  let project: Project
+  const localStorageProjectCode = getLocalStorageItem('project')
+
+  let project: Project | undefined
 
   if (urlProjectCode) {
-    project = getProject(urlProjectCode)!
+    project = getProject(urlProjectCode)
 
     if (!project) {
       location.href = '/404'
       throw new Error('project not found')
     }
 
-    if (urlProjectCode !== getLocalStorageItem('project'))
-      setLocalStorageItem('project', urlProjectCode)
+    if (project.code !== localStorageProjectCode)
+      setLocalStorageItem('project', project.code)
   } else
-    project = getProject(getLocalStorageItem('project')) ?? getProject('rb-tvt2')!
+    project = getProject(localStorageProjectCode) ?? getProject('rb-tvt2')
 
   const setProject: UseProjectResult['setProject'] = code => {
     setLocalStorageItem('project', code)
-    navigate(pathname.replace(`/${project!.code}/`, `/${code}/`))
+    navigate(pathname.replace(`/${project.code}/`, `/${code}/`))
   }
 
   return { project, setProject }

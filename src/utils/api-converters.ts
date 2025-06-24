@@ -35,11 +35,8 @@ export const convertGameStatsInfo = (apiMission: ApiMission): GameStats => ({
 export const convertGameScores = (apiOcapStats: ApiOcapStats): GameScore[] => {
   const fragsMap = apiOcapStats.scores.reduce((acc, score) => {
     for (const frag of score.frags) {
-      if (!acc[score.player])
-        acc[score.player] = {}
-      if (!acc[score.player]![frag.victim])
-        acc[score.player]![frag.victim] = []
-
+      acc[score.player] ??= {}
+      acc[score.player]![frag.victim] ??= []
       acc[score.player]![frag.victim]!.push(frag)
     }
 

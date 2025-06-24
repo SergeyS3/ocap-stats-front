@@ -16,14 +16,14 @@ const OcapLink = ({ missionFile, kill }: Props) => {
   }
 
   if (kill)
-    params['frame'] = '' + Math.ceil(+new Date(`1970-01-01T${kill.timeMark}Z`) / 1230)
+    params.frame = '' + Math.ceil(+new Date(`1970-01-01T${kill.timeMark}Z`) / 1230)
 
   return (
     <a
       className='ocap-link'
       href={`https://ocap.red-bear.ru/?${new URLSearchParams(params).toString()}`}
       target='_blank'
-      title={`OCAP${kill && ` @ ${kill.timeMark}`}`}
+      title={`OCAP${kill ? ` @ ${kill.timeMark}` : ''}`}
       rel='noreferrer'
     >
       <img src={blufor} alt='OCAP' />
