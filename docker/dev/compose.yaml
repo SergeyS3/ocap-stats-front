@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  front:
+    build:
+      context: ../..
+      dockerfile: docker/dev/Dockerfile
+    volumes:
+      - ../..:/usr/src/app
+    environment:
+      BOT_API_URL: ${BOT_API_URL}
+    ports:
+      - ${PORT}:${PORT}
