@@ -1,0 +1,9 @@
+services:
+  front:
+    build:
+      context: ../..
+      dockerfile: docker/prod/Dockerfile
+    environment:
+      BOT_API_URL: ${BOT_API_URL}
+    ports:
+      - ${PORT}:80
