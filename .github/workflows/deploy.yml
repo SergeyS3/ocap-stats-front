@@ -1,0 +1,52 @@
+name: Build and deploy
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-24.04
+    env:
+      HOST: ${{ secrets.SERVER_HOST }}
+      USER: ${{ secrets.SERVER_USER }}
+      SSH_KEY: ${{ secrets.SERVER_SSH_KEY }}
+      DEPLOY_FOLDER: ${{ secrets.SERVER_DEPLOY_FOLDER }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create .env file
+        run: |
+          cat <<EOF >> .env
+           PORT=${{ secrets.PORT }}
+           BOT_API_URL=${{ secrets.BOT_API_URL }}
+           COMPOSE_FILE=compose.yaml
+          EOF
+
+      - name: Build Docker image
+        run: docker compose build front
+        env:
+          COMPOSE_FILE: docker/prod/compose.yaml
+
+      - name: Save Docker image to tar
+        run: docker save ocap-stats-front:latest -o docker-image.tar
+
+      - name: Prepare SSH key
+        run: |
+          echo -e "$SSH_KEY" | sed 's/\\n/\n/g' > ~/.ssh/id_ed25519 # Key in .env has '\n' instead of line breaks
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -p 22 $HOST >> ~/.ssh/known_hosts
+
+      - name: Copy files to server
+        run: scp -i ~/.ssh/id_ed25519 docker-image.tar .env docker/prod/compose.yaml $USER@$HOST:$DEPLOY_FOLDER
+
+      - name: Deploy
+        run: |
+          ssh -i ~/.ssh/id_ed25519 -p 22 $USER@$HOST << EOF
+            cd $DEPLOY_FOLDER
+            docker load -i docker-image.tar
+            docker compose down
+            docker compose up -d --force-recreate
+            rm docker-image.tar
+          EOF
