@@ -2,6 +2,9 @@ FROM node:22.12.0-alpine3.21 AS builder
 
 WORKDIR /usr/src/app
 
+ARG BOT_API_URL
+ENV BOT_API_URL=${BOT_API_URL}
+
 COPY . .
 
 RUN npm ci && npm run build 
