@@ -3,7 +3,8 @@ services:
     build:
       context: ../..
       dockerfile: docker/prod/Dockerfile
-    environment:
-      BOT_API_URL: ${BOT_API_URL}
+      args:
+        BOT_API_URL: ${BOT_API_URL}
+    image: ocap-stats-front:latest
     ports:
       - ${PORT}:80
